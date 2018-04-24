@@ -98,3 +98,5 @@ vsdk/static
 vsdk/uploads
 vsdk/staticfiles
 *.DS_Store
+
+.idea
