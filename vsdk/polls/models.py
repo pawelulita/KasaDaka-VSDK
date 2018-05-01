@@ -29,10 +29,10 @@ class Poll(models.Model):
         """
         query = """
             SELECT vo.value AS vote_value, count(vo.value) AS vote_count
-            FROM votes AS v1
-            LEFT OUTER JOIN votes AS v2
+            FROM polls_vote AS v1
+            LEFT OUTER JOIN polls_vote AS v2
               ON v1.voter_id = v2.voter_id AND v1.created < v2.created
-            JOIN vote_options AS vo ON v1.vote_option_id = vo.id
+            JOIN polls_voteoption AS vo ON v1.vote_option_id = vo.id
             WHERE v1.poll_id = %s AND v2.voter_id IS NULL
             GROUP BY vo.value
             ORDER BY vo.value ASC
