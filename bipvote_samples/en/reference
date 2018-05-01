@@ -1,24 +1,22 @@
 001 Welcome to the Bipvote voting system.
 002 A vote is currently active and runs for
 003 more minutes.
-004 To hear the tentative results, press 1.
+0031 You can either hear the tentative results or end the current vote.
+004 hearing the tentative results [choice option]
 005 people voted yes and
 006 people voted no.
-007 To end the vote, press 2.
-008 Do you really wish to end the active vote?
-009 If you do, press 1.
-010 If you do not, press 2.                 
+007 ending the current vote [choice option]
+008 Do you really wish to end the active vote?      
 011 The current vote has been successfully ended.
 012 No vote is currently active.
 013 In the previous vote
-014 If you would like to start a new vote, press 1.
-015 If you would like to hear the previous results again, press 2.
+014 starting a new vote [choice option]
+015 hearing the previous results [choice option]
 016 A new vote is about to be created. For how many minutes should the vote run? Enter the number of minutes using your keypad.
 017 You are about to create a new vote that closes in
 018 minutes.
-019 If this duration is correct press 1. If you would like to reenter the duration, press 2.
+019 Is this duration correct?
 020 Please enter a number smaller than 1000.
 021 your new vote has been successfully created and is now active
 022 Thanks for using Bipvote. Goodbye!
-
 
