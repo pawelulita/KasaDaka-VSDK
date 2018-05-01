@@ -19,7 +19,8 @@ class Vote(models.Model):
     """
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, null=False)
     voter = models.ForeignKey(KasaDakaUser, on_delete=models.CASCADE, null=False)
-    vote = models.ForeignKey('VoteOption', on_delete=models.PROTECT, null=False)
+    vote_option = models.ForeignKey('VoteOption', on_delete=models.PROTECT, null=False)
+    created = models.DateTimeField(blank=False, auto_now_add=True)
 
 
 class VoteOption(models.Model):
