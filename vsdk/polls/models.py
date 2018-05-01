@@ -27,24 +27,34 @@ class Poll(models.Model):
         dict are the voting options for poll, and the values are the counts for those
         options.
         """
+
+        # The inner query takes only the last vote for each voter, and the outer one
+        # joins it with possible voting options.
         query = """
-            SELECT vo.value AS vote_value, count(vo.value) AS vote_count
-            FROM polls_vote AS v1
-            LEFT OUTER JOIN polls_vote AS v2
-              ON v1.voter_id = v2.voter_id AND v1.created < v2.created
-            JOIN polls_voteoption AS vo ON v1.vote_option_id = vo.id
-            WHERE v1.poll_id = %s AND v2.voter_id IS NULL
-            GROUP BY vo.value
-            ORDER BY vo.value ASC
+            select vo.value as vote_value, count(votes.id) as vote_count
+            from polls_voteoption as vo
+                left outer join (
+                    select v1.*
+                    from polls_vote v1
+                        left outer join polls_vote v2
+                            on v1.voter_id = v2.voter_id and v1.created < v2.created
+                    where v1.poll_id = %s and v2.voter_id is null
+                ) as votes on votes.vote_option_id = vo.id
+            group by vo.value
+            order by vo.value asc;
         """
 
         with connection.cursor() as cursor:
             cursor.execute(query, [self.id])
+            rows = cursor.fetchall()
 
-            for row in cursor.fetchall():
+            column_names = [col[0] for col in cursor.description]
+            results = [dict(zip(column_names, row)) for row in rows]
+
+            for result in results:
                 yield VoteResult(
-                    vote_value=row['vote_value'],
-                    vote_count=row['vote_count']
+                    vote_value=result['vote_value'],
+                    vote_count=result['vote_count']
                 )
 
 
@@ -52,7 +62,6 @@ class Vote(models.Model):
     """
     Votes are represented by this model.
     """
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, null=False)
     voter = models.ForeignKey(KasaDakaUser, on_delete=models.CASCADE, null=False)
     vote_option = models.ForeignKey('VoteOption', on_delete=models.PROTECT, null=False)
     created = models.DateTimeField(blank=False, auto_now_add=True)
