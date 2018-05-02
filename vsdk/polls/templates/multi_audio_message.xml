@@ -4,17 +4,14 @@
     <form>
         <block>
             <prompt>
-                <audio src="{{ prefix_url }}"/>
-                {% for url in number_urls %}
+                {% for url in audio_urls %}
                     <audio src="{{ url }}"/>
                 {% endfor %}
-                <audio src="{{ minutes_url }}"/>
             </prompt>
             {% if redirect_url %}
                 <goto next="{{ redirect_url }}"/>
             {% endif %}
         </block>
     </form>
-
 {% endblock %}
 

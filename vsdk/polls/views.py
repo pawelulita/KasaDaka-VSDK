@@ -24,14 +24,26 @@ def poll_duration_presentation(request: HttpRequest,
     else:
         redirect_url = None
 
+    poll = getattr(session.user, 'poll', None)
+
+    # There's an active poll
+    if poll and poll.active:
+        prefix_url = element.get_voice_fragment_url(session.language)
+        number_urls = _convert_number_to_audio_urls(poll.remaining_minutes, session.language)
+        minutes_url = element.minutes_label.get_voice_fragment_url(session.language)
+
+        audio_urls = [prefix_url] + number_urls + [minutes_url]
+
+    # Anything else (e.g. no active poll, no user attached to this session)
+    else:
+        audio_urls = [element.no_active_poll_label.get_voice_fragment_url(session.language)]
+
     context = {
-        'prefix_url': element.get_voice_fragment_url(session.language),
-        'number_urls': [],  # TODO: Put something here
-        'minutes_url': element.minutes_label.get_voice_fragment_url(session.language),
+        'audio_urls': audio_urls,
         'redirect_url': redirect_url
     }
 
-    return render(request, 'poll_duration.xml', context, content_type='text/xml')
+    return render(request, 'multi_audio_message.xml', context, content_type='text/xml')
 
 
 def _convert_number_to_audio_urls(num: int, language: Language) -> List[str]:
