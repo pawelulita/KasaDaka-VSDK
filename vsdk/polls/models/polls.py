@@ -38,8 +38,9 @@ class Poll(models.Model):
                     from polls_vote v1
                         left outer join polls_vote v2
                             on v1.voter_id = v2.voter_id and v1.created < v2.created
-                    where v1.poll_id = %s and v2.voter_id is null
+                    where v2.voter_id is null
                 ) as votes on votes.vote_option_id = vo.id
+            where vo.poll_id = %s 
             group by vo.value
             order by vo.value asc;
         """
