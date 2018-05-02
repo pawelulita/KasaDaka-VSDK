@@ -15,7 +15,7 @@ class Poll(models.Model):
     """
     Polls in our system are represented by this model.
     """
-    owner = models.ForeignKey(KasaDakaUser, on_delete=models.PROTECT, null=False)
+    owner = models.OneToOneField(KasaDakaUser, on_delete=models.PROTECT, null=False)
     start_date = models.DateTimeField(blank=False, null=False)
     duration = models.DurationField(blank=False, null=False)
 
