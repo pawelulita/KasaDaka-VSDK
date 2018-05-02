@@ -7,7 +7,7 @@ from vsdk.service_development.admin import MessagePresentationAdmin
 
 class PollDurationPresentationAdmin(MessagePresentationAdmin):
     fieldsets = MessagePresentationAdmin.fieldsets + [
-        (_('Minutes label'), {'fields': ['minutes_label']})
+        (_('Minutes label'), {'fields': ['minutes_label', 'no_active_poll_label']})
     ]
 
 
