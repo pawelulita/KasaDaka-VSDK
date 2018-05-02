@@ -68,7 +68,7 @@
   "pk": 9,
   "fields": {
     "name": "Pre Choice Option",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -76,7 +76,7 @@
   "pk": 10,
   "fields": {
     "name": "Post Choice Option",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -84,7 +84,7 @@
   "pk": 11,
   "fields": {
     "name": "One",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -92,7 +92,7 @@
   "pk": 12,
   "fields": {
     "name": "Two",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -100,7 +100,7 @@
   "pk": 13,
   "fields": {
     "name": "Three",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -108,7 +108,7 @@
   "pk": 14,
   "fields": {
     "name": "Four",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -116,7 +116,7 @@
   "pk": 15,
   "fields": {
     "name": "Five",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -124,7 +124,7 @@
   "pk": 16,
   "fields": {
     "name": "Six",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -132,7 +132,7 @@
   "pk": 17,
   "fields": {
     "name": "Seven",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -140,7 +140,7 @@
   "pk": 18,
   "fields": {
     "name": "Eight",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -148,7 +148,7 @@
   "pk": 19,
   "fields": {
     "name": "Nine",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -156,7 +156,7 @@
   "pk": 20,
   "fields": {
     "name": "Zero",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -164,7 +164,7 @@
   "pk": 21,
   "fields": {
     "name": "Yes",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -172,7 +172,7 @@
   "pk": 22,
   "fields": {
     "name": "No",
-    "description": ""
+    "description": null
   }
 },
 {
@@ -429,7 +429,7 @@
   "fields": {
     "parent": 22,
     "language": 2,
-    "audio": "no_en.wav"
+    "audio": "no_en_cd4S5hV.wav"
   }
 },
 {
@@ -456,7 +456,7 @@
   "fields": {
     "parent": 21,
     "language": 2,
-    "audio": "yes_en.wav"
+    "audio": "yes_en_nJEtGsT.wav"
   }
 },
 {
@@ -483,7 +483,7 @@
   "fields": {
     "parent": 20,
     "language": 2,
-    "audio": "0_en.wav"
+    "audio": "0_en_s9gbtaW.wav"
   }
 },
 {
@@ -510,7 +510,7 @@
   "fields": {
     "parent": 19,
     "language": 2,
-    "audio": "9_fr.wav"
+    "audio": "9_en_AXQebSv.wav"
   }
 },
 {
@@ -537,7 +537,7 @@
   "fields": {
     "parent": 18,
     "language": 2,
-    "audio": "8_en.wav"
+    "audio": "8_en_QfvWX7M.wav"
   }
 },
 {
@@ -564,7 +564,7 @@
   "fields": {
     "parent": 17,
     "language": 2,
-    "audio": "7_en.wav"
+    "audio": "7_en_amBB90M.wav"
   }
 },
 {
@@ -591,7 +591,7 @@
   "fields": {
     "parent": 16,
     "language": 2,
-    "audio": "6_en.wav"
+    "audio": "6_en_P7MpD2b.wav"
   }
 },
 {
@@ -618,7 +618,7 @@
   "fields": {
     "parent": 15,
     "language": 2,
-    "audio": "5_en.wav"
+    "audio": "5_en_6nEddEC.wav"
   }
 },
 {
@@ -645,7 +645,7 @@
   "fields": {
     "parent": 14,
     "language": 2,
-    "audio": "4_fr.wav"
+    "audio": "4_en_3bshN1h.wav"
   }
 },
 {
@@ -672,7 +672,7 @@
   "fields": {
     "parent": 13,
     "language": 2,
-    "audio": "3_en.wav"
+    "audio": "3_en_4U7MNJK.wav"
   }
 },
 {
@@ -699,7 +699,7 @@
   "fields": {
     "parent": 12,
     "language": 2,
-    "audio": "2_en.wav"
+    "audio": "2_en_B6H6YSe.wav"
   }
 },
 {
@@ -726,7 +726,7 @@
   "fields": {
     "parent": 11,
     "language": 2,
-    "audio": "1_en.wav"
+    "audio": "1_en_RjKz6wN.wav"
   }
 },
 {
@@ -753,7 +753,7 @@
   "fields": {
     "parent": 10,
     "language": 2,
-    "audio": "post_choice_option_en.wav"
+    "audio": "press_en.wav"
   }
 },
 {
@@ -780,7 +780,7 @@
   "fields": {
     "parent": 9,
     "language": 2,
-    "audio": "pre_choice_option_en.wav"
+    "audio": "to_select_en.wav"
   }
 },
 {
@@ -1334,78 +1334,6 @@
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 2,
-  "fields": {
-    "service": 1,
-    "creation_date": "2017-04-23T19:30:23.792Z",
-    "modification_date": "2018-02-16T16:42:26.402Z",
-    "name": "Does the king like to drink beer?",
-    "description": "",
-    "voice_label": 23
-  }
-},
-{
-  "model": "service_development.voiceservicesubelement",
-  "pk": 3,
-  "fields": {
-    "service": 1,
-    "creation_date": "2017-04-23T19:32:07.853Z",
-    "modification_date": "2018-01-25T14:35:48.977Z",
-    "name": "Yes",
-    "description": "King <3's BEER",
-    "voice_label": 21
-  }
-},
-{
-  "model": "service_development.voiceservicesubelement",
-  "pk": 4,
-  "fields": {
-    "service": 1,
-    "creation_date": "2017-04-23T19:32:07.854Z",
-    "modification_date": "2018-02-16T16:42:26.405Z",
-    "name": "No",
-    "description": "",
-    "voice_label": 22
-  }
-},
-{
-  "model": "service_development.voiceservicesubelement",
-  "pk": 5,
-  "fields": {
-    "service": 1,
-    "creation_date": "2017-04-23T19:49:50.055Z",
-    "modification_date": "2018-02-16T16:42:51.484Z",
-    "name": "This is the truth",
-    "description": "",
-    "voice_label": 3
-  }
-},
-{
-  "model": "service_development.voiceservicesubelement",
-  "pk": 6,
-  "fields": {
-    "service": 1,
-    "creation_date": "2017-04-23T21:11:06.805Z",
-    "modification_date": "2017-04-23T21:33:29.853Z",
-    "name": "Thank you for using this service",
-    "description": "",
-    "voice_label": 5
-  }
-},
-{
-  "model": "service_development.voiceservicesubelement",
-  "pk": 7,
-  "fields": {
-    "service": 1,
-    "creation_date": "2017-04-23T21:36:55.756Z",
-    "modification_date": "2017-04-23T21:36:55.756Z",
-    "name": "King is boring",
-    "description": "",
-    "voice_label": 6
-  }
-},
-{
-  "model": "service_development.voiceservicesubelement",
   "pk": 8,
   "fields": {
     "service": 2,
@@ -1578,7 +1506,7 @@
   "fields": {
     "service": 2,
     "creation_date": "2018-05-01T15:38:14.107Z",
-    "modification_date": "2018-05-02T08:07:34.982Z",
+    "modification_date": "2018-05-02T09:47:58.060Z",
     "name": "Thanks and goodbye",
     "description": "",
     "voice_label": 39
@@ -1650,31 +1578,11 @@
   "fields": {
     "service": 2,
     "creation_date": "2018-05-01T16:47:26.584Z",
-    "modification_date": "2018-05-02T08:01:56.810Z",
+    "modification_date": "2018-05-02T09:47:51.175Z",
     "name": "DUMMY a new vote has opened",
     "description": "",
     "voice_label": 38
   }
-},
-{
-  "model": "service_development.voiceserviceelement",
-  "pk": 2,
-  "fields": {}
-},
-{
-  "model": "service_development.voiceserviceelement",
-  "pk": 5,
-  "fields": {}
-},
-{
-  "model": "service_development.voiceserviceelement",
-  "pk": 6,
-  "fields": {}
-},
-{
-  "model": "service_development.voiceserviceelement",
-  "pk": 7,
-  "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
@@ -1743,30 +1651,12 @@
 },
 {
   "model": "service_development.voiceservice",
-  "pk": 1,
-  "fields": {
-    "name": "King beer thing",
-    "description": "Example thing",
-    "creation_date": "2017-04-23T19:23:52.392Z",
-    "modification_date": "2018-05-02T08:21:48.980Z",
-    "active": false,
-    "_start_element": 2,
-    "registration": "preferred",
-    "registration_language": true,
-    "registration_name": false,
-    "supported_languages": [
-      2
-    ]
-  }
-},
-{
-  "model": "service_development.voiceservice",
   "pk": 2,
   "fields": {
     "name": "BipVote",
     "description": "The voice-interactive application for the BipVote voting service",
     "creation_date": "2018-05-01T12:01:17.865Z",
-    "modification_date": "2018-05-02T08:21:57.892Z",
+    "modification_date": "2018-05-02T09:49:21.620Z",
     "active": true,
     "_start_element": 10,
     "registration": "preferred",
@@ -1777,24 +1667,6 @@
       3
     ]
   }
-},
-{
-  "model": "service_development.kasadakauser",
-  "pk": 1,
-  "fields": {
-    "caller_id": "456",
-    "first_name": "Henk",
-    "last_name": "Ernia",
-    "creation_date": "2018-02-02T11:10:27.670Z",
-    "modification_date": "2018-02-12T14:44:24.019Z",
-    "language": 1,
-    "service": 1
-  }
-},
-{
-  "model": "service_development.choice",
-  "pk": 2,
-  "fields": {}
 },
 {
   "model": "service_development.choice",
@@ -1815,22 +1687,6 @@
   "model": "service_development.choice",
   "pk": 28,
   "fields": {}
-},
-{
-  "model": "service_development.choiceoption",
-  "pk": 3,
-  "fields": {
-    "parent": 2,
-    "_redirect": 5
-  }
-},
-{
-  "model": "service_development.choiceoption",
-  "pk": 4,
-  "fields": {
-    "parent": 2,
-    "_redirect": 7
-  }
 },
 {
   "model": "service_development.choiceoption",
@@ -1894,30 +1750,6 @@
   "fields": {
     "parent": 28,
     "_redirect": 26
-  }
-},
-{
-  "model": "service_development.messagepresentation",
-  "pk": 5,
-  "fields": {
-    "final_element": false,
-    "_redirect": 6
-  }
-},
-{
-  "model": "service_development.messagepresentation",
-  "pk": 6,
-  "fields": {
-    "final_element": true,
-    "_redirect": null
-  }
-},
-{
-  "model": "service_development.messagepresentation",
-  "pk": 7,
-  "fields": {
-    "final_element": false,
-    "_redirect": 6
   }
 },
 {
@@ -1989,7 +1821,7 @@
   "pk": 31,
   "fields": {
     "final_element": false,
-    "_redirect": 6
+    "_redirect": 25
   }
 }
 ]
