@@ -2,6 +2,7 @@ from typing import NamedTuple, Iterable
 
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models, connection
+from django.utils import timezone
 
 from vsdk.service_development.models import KasaDakaUser
 
@@ -57,6 +58,13 @@ class Poll(models.Model):
                     vote_value=result['vote_value'],
                     vote_count=result['vote_count']
                 )
+
+    @property
+    def active(self) -> bool:
+        """
+        True if the poll is active, False otherwise.
+        """
+        return self.start_date + self.duration > timezone.now()
 
 
 class Vote(models.Model):
