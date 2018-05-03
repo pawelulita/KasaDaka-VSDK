@@ -1338,7 +1338,7 @@
   "fields": {
     "service": 2,
     "creation_date": "2018-05-01T12:09:19.149Z",
-    "modification_date": "2018-05-02T10:32:00.100Z",
+    "modification_date": "2018-05-03T14:03:28.181Z",
     "name": "Welcome to BipVote",
     "description": "",
     "voice_label": 29
@@ -1585,6 +1585,18 @@
   }
 },
 {
+  "model": "service_development.voiceservicesubelement",
+  "pk": 32,
+  "fields": {
+    "service": 2,
+    "creation_date": "2018-05-03T13:29:06.391Z",
+    "modification_date": "2018-05-03T13:29:06.391Z",
+    "name": "Poll duration",
+    "description": "",
+    "voice_label": 30
+  }
+},
+{
   "model": "service_development.voiceserviceelement",
   "pk": 8,
   "fields": {}
@@ -1647,6 +1659,11 @@
 {
   "model": "service_development.voiceserviceelement",
   "pk": 31,
+  "fields": {}
+},
+{
+  "model": "service_development.voiceserviceelement",
+  "pk": 32,
   "fields": {}
 },
 {
@@ -1757,7 +1774,7 @@
   "pk": 8,
   "fields": {
     "final_element": false,
-    "_redirect": 10
+    "_redirect": 32
   }
 },
 {
@@ -1822,6 +1839,47 @@
   "fields": {
     "final_element": false,
     "_redirect": 25
+  }
+},
+{
+  "model": "service_development.messagepresentation",
+  "pk": 32,
+  "fields": {
+    "final_element": false,
+    "_redirect": 12
+  }
+},
+{
+  "model": "polls.poll",
+  "pk": 1,
+  "fields": {
+    "voice_service": 2,
+    "start_date": "2018-05-03T13:22:56.376Z",
+    "duration": "30 00:00:00"
+  }
+},
+{
+  "model": "polls.voteoption",
+  "pk": 1,
+  "fields": {
+    "poll": 1,
+    "value": 1
+  }
+},
+{
+  "model": "polls.voteoption",
+  "pk": 2,
+  "fields": {
+    "poll": 1,
+    "value": 2
+  }
+},
+{
+  "model": "polls.polldurationpresentation",
+  "pk": 32,
+  "fields": {
+    "minutes_label": 31,
+    "no_active_poll_label": 34
   }
 }
 ]
