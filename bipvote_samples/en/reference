@@ -3,8 +3,9 @@
 003 more minutes.
 0031 You can either hear the tentative results or end the current vote.
 004 hearing the tentative results [choice option]
-005 people voted yes and
-006 people voted no.
+005 people voted yes and % deprecated?
+006 people voted no. % deprecated?
+0061 people voted for option
 007 ending the current vote [choice option]
 008 Do you really wish to end the active vote?      
 011 The current vote has been successfully ended.
