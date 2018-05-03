@@ -26,7 +26,7 @@ def poll_duration_presentation(request: HttpRequest,
     else:
         redirect_url = None
 
-    poll = getattr(session.user, 'poll', None)
+    poll = getattr(element.service, 'poll', None)
 
     # There's an active poll
     if poll and poll.active:
