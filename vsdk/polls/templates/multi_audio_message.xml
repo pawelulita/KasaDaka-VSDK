@@ -1,0 +1,17 @@
+{% extends "base.xml" %}
+
+{% block content %}
+    <form>
+        <block>
+            <prompt>
+                {% for url in audio_urls %}
+                    <audio src="{{ url }}"/>
+                {% endfor %}
+            </prompt>
+            {% if redirect_url %}
+                <goto next="{{ redirect_url }}"/>
+            {% endif %}
+        </block>
+    </form>
+{% endblock %}
+
