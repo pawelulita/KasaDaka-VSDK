@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models, connection
 from django.utils import timezone
 
-from vsdk.service_development.models import KasaDakaUser
+from vsdk.service_development.models import VoiceService
 
 
 class VoteResult(NamedTuple):
@@ -16,7 +16,7 @@ class Poll(models.Model):
     """
     Polls in our system are represented by this model.
     """
-    owner = models.OneToOneField(KasaDakaUser, on_delete=models.PROTECT, null=False)
+    voice_service = models.OneToOneField(VoiceService, on_delete=models.PROTECT, null=False)
     start_date = models.DateTimeField(blank=False, null=False)
     duration = models.DurationField(blank=False, null=False)
 
@@ -38,8 +38,8 @@ class Poll(models.Model):
                     select v1.*
                     from polls_vote v1
                         left outer join polls_vote v2
-                            on v1.voter_id = v2.voter_id and v1.created < v2.created
-                    where v2.voter_id is null
+                            on v1.caller_id = v2.caller_id and v1.created < v2.created
+                    where v2.caller_id is null
                 ) as votes on votes.vote_option_id = vo.id
             where vo.poll_id = %s 
             group by vo.value
@@ -84,7 +84,7 @@ class Vote(models.Model):
     """
     Votes are represented by this model.
     """
-    voter = models.ForeignKey(KasaDakaUser, on_delete=models.CASCADE, null=False)
+    caller_id = models.CharField(max_length=100)
     vote_option = models.ForeignKey('VoteOption', on_delete=models.PROTECT, null=False)
     created = models.DateTimeField(blank=False, auto_now_add=True)
 
