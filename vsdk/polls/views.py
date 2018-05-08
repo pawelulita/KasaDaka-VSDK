@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpRequest, Http404
 from django.shortcuts import render, get_object_or_404
 
 from vsdk.polls.exceptions import NoCallerIDError
-from vsdk.polls.models import VoteOption, Vote
+from vsdk.polls.models import VoteOption, Vote, Poll, PollResultsPresentation
 from vsdk.polls.models.custom_elements import PollDurationPresentation
 from vsdk.service_development.models import CallSession, Language, VoiceService
 
@@ -82,6 +82,48 @@ def handle_bip(request: HttpRequest, voice_service_id: int) -> HttpResponse:
     Vote.objects.create(caller_id=caller_id, vote_option=vote_option)
 
     return HttpResponse(status=204)
+
+
+def poll_results(request: HttpRequest, element_id: int, session_id: int) -> HttpResponse:
+    """
+    Take the current active poll for the current voice service, and present its results.
+    In case there's no active poll, communicate this fact.
+    """
+    element = get_object_or_404(PollResultsPresentation, pk=element_id)
+    session = get_object_or_404(CallSession, pk=session_id)
+    session.record_step(element)
+
+    if not element.final_element and element.redirect:
+        redirect_url = element.redirect.get_absolute_url(session)
+    else:
+        redirect_url = None
+
+    poll: Poll = getattr(element.service, 'poll', None)
+
+    # There's an active poll
+    if poll and poll.active:
+        audio_urls = []
+
+        for vote_result in poll.count_votes():
+            count_urls = _convert_number_to_audio_urls(vote_result.vote_count, session.language)
+            audio_urls.extend(count_urls)
+
+            voted_for_url = element.get_voice_fragment_url(session.language)
+            audio_urls.append(voted_for_url)
+
+            value_urls = _convert_number_to_audio_urls(vote_result.vote_value, session.language)
+            audio_urls.extend(value_urls)
+
+    # Anything else (e.g. no active poll, no user attached to this session)
+    else:
+        audio_urls = [element.no_active_poll_label.get_voice_fragment_url(session.language)]
+
+    context = {
+        'audio_urls': audio_urls,
+        'redirect_url': redirect_url
+    }
+
+    return render(request, 'multi_audio_message.xml', context, content_type='text/xml')
 
 
 def _convert_number_to_audio_urls(num: int, language: Language) -> List[str]:
