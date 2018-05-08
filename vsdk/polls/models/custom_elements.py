@@ -35,3 +35,24 @@ class PollDurationPresentation(MessagePresentation):
             errors.append(ugettext('No label for no active poll is present'))
 
         return errors
+
+
+class PollResultsPresentation(MessagePresentation):
+    _urls_name = 'polls:poll-results'
+
+    no_active_poll_label = models.ForeignKey(
+        VoiceLabel,
+        verbose_name=_('No active poll label'),
+        related_name='+',
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+
+    def validator(self):
+        errors = super().validator()
+
+        if not self.no_active_poll_label:
+            errors.append(ugettext('No label for no active poll is present'))
+
+        return errors
