@@ -1,8 +1,9 @@
 from django.contrib import admin
+from django.contrib.admin import ModelAdmin
 from django.utils.translation import ugettext_lazy as _
 
-from vsdk.polls.models import PollDurationPresentation, PollResultsPresentation
 from vsdk.service_development.admin import MessagePresentationAdmin
+from .models import PollDurationPresentation, PollResultsPresentation, Poll, VoteOption, Vote
 
 
 class PollDurationPresentationAdmin(MessagePresentationAdmin):
@@ -19,3 +20,17 @@ class PollResultsPresentationAdmin(MessagePresentationAdmin):
 
 admin.site.register(PollDurationPresentation, PollDurationPresentationAdmin)
 admin.site.register(PollResultsPresentation, PollResultsPresentationAdmin)
+
+
+class VoteOptionsInLine(admin.TabularInline):
+    model = VoteOption
+
+
+class PollAdmin(ModelAdmin):
+    inlines = [VoteOptionsInLine]
+    change_form_template = 'admin_edit_poll.html'
+
+
+admin.site.register(Poll, PollAdmin)
+admin.site.register(VoteOption)
+admin.site.register(Vote)
