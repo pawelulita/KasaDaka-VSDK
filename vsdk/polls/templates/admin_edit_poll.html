@@ -1,0 +1,31 @@
+{% extends "admin/change_form.html" %}
+
+{% block after_related_objects %}
+    <div class="inline-group">
+        <div class="tabular inline-related last-related">
+            <fieldset class="module">
+                <h2>Vote results (after deduplication)</h2>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="original"></th>
+                        <th class="required">Vote option</th>
+                        <th>Vote count</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for result in original.count_votes %}
+                        <tr class="form-row {% cycle 'row1' 'row2' %} has_original">
+                            <td class="original"></td>
+                            <td>{{ result.vote_value }}</td>
+                            <td>{{ result.vote_count }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+{% endblock %}

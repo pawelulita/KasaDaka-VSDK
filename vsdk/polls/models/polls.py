@@ -16,7 +16,8 @@ class Poll(models.Model):
     """
     Polls in our system are represented by this model.
     """
-    voice_service = models.OneToOneField(VoiceService, on_delete=models.PROTECT, null=False)
+    voice_service = models.OneToOneField(VoiceService, on_delete=models.PROTECT, null=True,
+                                         blank=True)
     start_date = models.DateTimeField(blank=False, null=False)
     duration = models.DurationField(blank=False, null=False)
 
@@ -64,7 +65,7 @@ class Poll(models.Model):
         """
         True if the poll is active, False otherwise.
         """
-        return self.start_date + self.duration > timezone.now()
+        return self.voice_service and self.start_date + self.duration > timezone.now()
 
     @property
     def remaining_minutes(self) -> int:
