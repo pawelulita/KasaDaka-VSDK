@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>BipVote HighCharts</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://code.highcharts.com/modules/oldie.js"></script>
+    <![endif]-->
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  </head>
+  <body>
+    <h1>Visualization playground</h1>
+    <h2>Pie charts</h2>
+    <div id="pieChart1" style="width:49%; height:400px; display:inline-block;"></div>
+    <div id="pieChart2" style="width:49%; height:400px; display:inline-block;"></div>
+    
+    <h2>Time chart</h2>
+    
+    <div id="timeSeries" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+  </body>
+  <script>
+    /* Pie charts */
+    const data = [ {"question" : "Is BipVote pretty gud?",
+                    "results" : [["yes", 43],
+                                 ["no", 2]]
+                   },
+                   {"question" : "Is this a nice graph?",
+                    "results" : [["It's beautiful", 45],
+                                 ["Not really", 4],
+                                 ["I suppose", 23],
+                                 ["Beauty is in the eye of the beholder. But to answer your question: yes.", 79]]
+                   }
+                 ]
+
+    const drawPieChart = (identifier, poll) => {
+      Highcharts.chart(identifier, {
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: true,
+                alpha: 45
+            }
+        },
+        title: {
+            text: poll["question"]
+        },
+        plotOptions: {
+            pie: {
+                innerSize: 75,
+                depth: 50
+            }
+        },
+        series: [{
+            name: 'Bips',
+            data: poll["results"]
+        }]
+      });
+    }
+
+    drawPieChart("pieChart1", data[0])
+    drawPieChart("pieChart2", data[1])
+    
+    /* Time line */
+    
+    const poll = { "question" : "Is BipVote pretty gud?",
+                   "results" : [["yes", [1526034799000, 1526034815000, 1526034815020, 1526034845020, 1526034845022,1526034935000]],
+                                ["no", [1526034810000, 1526034821000,1526034821000, 1526034843000, 1526034857000, 1526034900000, 1526034905000, 1526034945000]]
+                               ]
+                 }
+
+    const drawTimeSeries = (identifier, poll) => {      
+      Highcharts.chart(identifier, {
+        chart: {
+          zoomType: 'x'
+        },
+        title: {
+          text: 'Bips over time (cumulative)'
+        },
+        subtitle: {
+          text: document.ontouchstart === undefined ?
+            'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+          type: 'datetime'
+        },
+        yAxis: {
+          title: {
+            text: 'Total number of bips'
+          }
+        },
+        legend: {
+          enabled: true
+        },
+        plotOptions: {
+          area: {
+            fillColor: {
+              linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 1
+              },
+              stops: [[0, Highcharts.getOptions().colors[0]],
+                      [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                     ]
+            },
+            marker: {
+              radius: 2
+            },
+            lineWidth: 1,
+            states: {
+              hover: {
+                lineWidth: 1
+              }
+            },
+            threshold: null
+          }
+        },
+        series: poll["results"].map(pair => ({name: pair[0], 
+                                              data: pair[1].map((stamp, i) => [stamp, i]),
+                                              step: 'end'
+                                             }))
+      });
+    }
+    
+    drawTimeSeries("timeSeries", poll)
+
+    
+
+
+    
+  </script>
+</html>
