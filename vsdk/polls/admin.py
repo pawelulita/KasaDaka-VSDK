@@ -3,7 +3,8 @@ from django.contrib.admin import ModelAdmin
 from django.utils.translation import ugettext_lazy as _
 
 from vsdk.service_development.admin import MessagePresentationAdmin
-from .models import PollDurationPresentation, PollResultsPresentation, Poll, VoteOption, Vote
+from .models import (PollDurationPresentation, PollResultsPresentation, Poll, VoteOption, Vote,
+                     CreatePoll)
 
 
 class PollDurationPresentationAdmin(MessagePresentationAdmin):
@@ -34,3 +35,4 @@ class PollAdmin(ModelAdmin):
 admin.site.register(Poll, PollAdmin)
 admin.site.register(VoteOption)
 admin.site.register(Vote)
+admin.site.register(CreatePoll)

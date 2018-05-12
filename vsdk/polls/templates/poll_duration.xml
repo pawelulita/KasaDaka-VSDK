@@ -1,0 +1,19 @@
+{% extends "base.xml" %}
+
+{% block content %}
+    <form id="top">
+        <property name="inputmodes" value="dtmf"/>
+        <property name="interdigittimeout" value="2s"/>
+        <property name="timeout" value="4s"/>
+        <field name="duration" type="digits?maxlength=10">
+            <prompt bargein="true">
+                {{ label_url }}
+            </prompt>
+
+            <filled>
+                <submit next="{{ request.path }}" namelist="duration" method="POST"/>
+            </filled>
+        </field>
+    </form>
+{% endblock %}
+

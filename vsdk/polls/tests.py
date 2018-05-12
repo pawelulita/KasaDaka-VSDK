@@ -1,10 +1,11 @@
 from datetime import timedelta
 
 from django.test import TestCase
+from django.urls import reverse
 from django.utils import timezone
 
-from vsdk.polls.models import Poll, VoteOption, Vote, VoteResult
-from vsdk.service_development.models import VoiceService
+from vsdk.polls.models import Poll, VoteOption, Vote, VoteResult, CreatePoll
+from vsdk.service_development.models import VoiceService, CallSession
 
 
 class PollTests(TestCase):
@@ -63,3 +64,58 @@ class PollTests(TestCase):
         }
 
         self.assertEquals(vote_counts, expected_vote_counts)
+
+
+class TestCreatePoll(TestCase):
+    def setUp(self):
+        self._voice_service = VoiceService.objects.create(
+            name='Test VS',
+            description='Description',
+            active=True,
+            registration='disabled'
+        )
+        self.session = CallSession.objects.create(service=self.voice_service)
+        self.element = CreatePoll.objects.create(service=self.voice_service)
+
+    @property
+    def voice_service(self):
+        return VoiceService.objects.get(id=self._voice_service.id)
+
+    def test_create_poll_when_no_poll(self):
+        poll_before_creation = getattr(self.voice_service, 'poll', None)
+        self.assertIsNone(poll_before_creation)
+
+        url = reverse(
+            'polls:create-poll',
+            kwargs={
+                'element_id': self.element.id,
+                'session_id': self.session.id
+            }
+        )
+        result = self.client.post(url, data={'duration': 100000})
+        self.assertEqual(result.status_code, 201)
+
+        poll_after_creation = self.voice_service.poll
+        self.assertIsNotNone(poll_after_creation)
+
+    def test_create_poll_when_poll_exists(self):
+        old_poll = Poll.objects.create(
+            voice_service=self.voice_service,
+            start_date=timezone.now(),
+            duration=timedelta(1000)
+        )
+        self.assertIsNotNone(getattr(self.voice_service, 'poll', None))
+
+        url = reverse(
+            'polls:create-poll',
+            kwargs={
+                'element_id': self.element.id,
+                'session_id': self.session.id
+            }
+        )
+        result = self.client.post(url, data={'duration': 100000})
+        self.assertEqual(result.status_code, 201)
+
+        new_poll = self.voice_service.poll
+        self.assertIsNotNone(new_poll)
+        self.assertNotEqual(old_poll.id, new_poll.id)

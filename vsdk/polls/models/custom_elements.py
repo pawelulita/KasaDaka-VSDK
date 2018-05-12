@@ -56,3 +56,7 @@ class PollResultsPresentation(MessagePresentation):
             errors.append(ugettext('No label for no active poll is present'))
 
         return errors
+
+
+class CreatePoll(MessagePresentation):
+    _urls_name = 'polls:create-poll'

@@ -1,10 +1,12 @@
+from datetime import timedelta
 from typing import List
 
 from django.http import HttpResponse, HttpRequest, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
 
 from vsdk.polls.exceptions import NoCallerIDError
-from vsdk.polls.models import VoteOption, Vote, Poll, PollResultsPresentation
+from vsdk.polls.models import VoteOption, Vote, Poll, PollResultsPresentation, CreatePoll
 from vsdk.polls.models.custom_elements import PollDurationPresentation
 from vsdk.service_development.models import CallSession, Language, VoiceService
 
@@ -124,6 +126,39 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
     }
 
     return render(request, 'multi_audio_message.xml', context, content_type='text/xml')
+
+
+def create_poll(request: HttpRequest, element_id: int, session_id: int) -> HttpResponse:
+    """
+    Create a new poll, and attach it to the current voice service.
+    """
+    element = get_object_or_404(CreatePoll, pk=element_id)
+    session = get_object_or_404(CallSession, pk=session_id)
+    session.record_step(element)
+
+    # We received a request to create a new poll
+    if request.method == 'POST':
+        old_poll: Poll = getattr(session.service, 'poll', None)
+
+        if old_poll:
+            old_poll.voice_service = None
+            old_poll.save()
+
+        duration = int(request.POST['duration'])  # in days
+        Poll.objects.create(
+            voice_service=session.service,
+            start_date=timezone.now(),
+            duration=timedelta(days=duration)
+        )
+
+        if not element.final_element and element.redirect:
+            return redirect(element.redirect.get_absolute_url(session))
+        else:
+            return HttpResponse(status=201)
+
+    else:
+        context = {'label_url': element.get_voice_fragment_url(session.language)}
+        return render(request, 'poll_duration.xml', context, content_type='text/xml')
 
 
 def _convert_number_to_audio_urls(num: int, language: Language) -> List[str]:
