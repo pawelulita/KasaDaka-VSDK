@@ -2,14 +2,13 @@
 <html>
   <head>
     <title>BipVote HighCharts</title>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="libs/highcharts.js"></script>
     <!--[if lt IE 9]>
-    <script src="https://code.highcharts.com/modules/oldie.js"></script>
+    <script src="libs/oldie.js"></script>
     <![endif]-->
-    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="libs/highcharts-3d.js"></script>
+    <script src="libs/exporting.js"></script>
+    <script src="libs/export-data.js"></script>
   </head>
   <body>
     <h1>Visualization playground</h1>
@@ -38,14 +37,13 @@
                                  ["I suppose", 23],
                                  ["Beauty is in the eye of the beholder. But to answer your question: yes.", 79]]
                    }
-                 ]
+                 ];
 
     const drawPieChart = (identifier, poll) => {
       Highcharts.chart(identifier, {
         chart: {
             type: 'pie',
-            options3d: {
-                enabled: true,
+            options3d: {enabled: true,
                 alpha: 45
             }
         },
@@ -63,10 +61,10 @@
             data: poll["results"]
         }]
       });
-    }
+    };
 
-    drawPieChart("pieChart1", data[0])
-    drawPieChart("pieChart2", data[1])
+    drawPieChart("pieChart1", data[0]);
+    drawPieChart("pieChart2", data[1]);
     
     /* Time line */
     
@@ -74,7 +72,7 @@
                    "results" : [["yes", [1526034799000, 1526034815000, 1526034815020, 1526034845020, 1526034845022,1526034935000]],
                                 ["no", [1526034810000, 1526034821000,1526034821000, 1526034843000, 1526034857000, 1526034900000, 1526034905000, 1526034945000]]
                                ]
-                 }
+                 };
 
     const drawTimeSeries = (identifier, poll) => {      
       Highcharts.chart(identifier, {
@@ -104,10 +102,9 @@
                                               step: 'end'
                                              }))
       });
-    }
+    };
     
-    drawTimeSeries("timeSeries", poll)
-    
+    drawTimeSeries("timeSeries", poll);
     
     // animated
     
@@ -115,10 +112,10 @@
                         "results" : [["yes", []],
                                      ["no", []]
                                     ]
-             }
+             };
     
-    let yesBips = 0
-    let noBips = 0
+    let yesBips = 0;
+    let noBips = 0;
     
     const drawAnimatedTimeSeries = (identifier, poll) => {      
       Highcharts.chart(identifier, {
@@ -129,15 +126,15 @@
             load: function () {
               document.getElementById("yesButton").addEventListener("click", () => {
                 const series = this.series[0];
-                const x = (new Date()).getTime() // current time
-                yesBips += 1
+                const x = (new Date()).getTime(); // current time
+                yesBips += 1;
                 series.addPoint([x, yesBips], true, false);
-              })
+              });
               
               document.getElementById("noButton").addEventListener("click", () => {
                 const series = this.series[1];
-                const x = (new Date()).getTime() // current time
-                noBips += 1
+                const x = (new Date()).getTime(); // current time
+                noBips += 1;
                 series.addPoint([x, noBips], true, false);
               })}
           }
@@ -165,15 +162,8 @@
                                               step: 'end'
                                              }))
       });
-    }
+    };
     
     drawAnimatedTimeSeries("timeSeries2", emptyPoll)
-    
-    
-
-    
-
-
-    
   </script>
 </html>
