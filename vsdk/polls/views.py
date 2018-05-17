@@ -31,10 +31,10 @@ def poll_duration_presentation(request: HttpRequest,
     # There's an active poll
     if poll and poll.active:
         prefix_url = element.get_voice_fragment_url(session.language)
-        number_urls = _convert_number_to_audio_urls(poll.remaining_minutes, session.language)
-        minutes_url = element.minutes_label.get_voice_fragment_url(session.language)
+        number_urls = _convert_number_to_audio_urls(poll.remaining_days, session.language)
+        days_url = element.days_label.get_voice_fragment_url(session.language)
 
-        audio_urls = [prefix_url] + number_urls + [minutes_url]
+        audio_urls = [prefix_url] + number_urls + [days_url]
 
         if not element.final_element and element.redirect:
             redirect_url = element.redirect.get_absolute_url(session)

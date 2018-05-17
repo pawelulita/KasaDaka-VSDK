@@ -8,9 +8,9 @@ from vsdk.service_development.models import (MessagePresentation, VoiceLabel, Ch
 class PollDurationPresentation(MessagePresentation):
     _urls_name = 'polls:poll-duration-presentation'
 
-    minutes_label = models.ForeignKey(
+    days_label = models.ForeignKey(
         VoiceLabel,
-        verbose_name=_('Minutes label'),
+        verbose_name=_('Days label'),
         related_name='+',
         on_delete=models.SET_NULL,
         null=True,
@@ -51,7 +51,7 @@ class PollDurationPresentation(MessagePresentation):
     def validator(self):
         errors = super().validator()
 
-        if not self.minutes_label:
+        if not self.days_label:
             errors.append(ugettext('No minutes label is present'))
 
         if not self.no_active_poll_label:

@@ -68,17 +68,15 @@ class Poll(models.Model):
         return self.voice_service and self.start_date + self.duration > timezone.now()
 
     @property
-    def remaining_minutes(self) -> int:
+    def remaining_days(self) -> int:
         """
-        Get the number of remaining minutes.
+        Get the number of remaining full days.
         """
         if not self.active:
             return 0
 
         remaining = self.start_date + self.duration - timezone.now()
-        remaining_minutes = int(remaining.total_seconds() // 60)
-
-        return remaining_minutes
+        return remaining.days
 
 
 class Vote(models.Model):
