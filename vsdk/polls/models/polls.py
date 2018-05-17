@@ -96,5 +96,6 @@ class VoteOption(models.Model):
 
     TODO: Add some integration for actual phone numbers.
     """
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, null=False)
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, null=False,
+                             related_name='vote_options')
     value = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(9)])

@@ -2,13 +2,15 @@ from datetime import timedelta
 from typing import List
 
 from django.http import HttpResponse, HttpRequest, Http404
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
 from vsdk.polls.exceptions import NoCallerIDError
-from vsdk.polls.models import VoteOption, Vote, Poll, PollResultsPresentation, CreatePoll
+from vsdk.polls.models import (VoteOption, Vote, Poll, PollResultsPresentation, AskPollDuration,
+                               ConfirmPollDuration, CreatePoll, ConfirmPollCreation)
 from vsdk.polls.models.custom_elements import PollDurationPresentation
 from vsdk.service_development.models import CallSession, Language, VoiceService
+from vsdk.service_development.views import choice_generate_context
 
 
 def poll_duration_presentation(request: HttpRequest,
@@ -128,37 +130,92 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
     return render(request, 'multi_audio_message.xml', context, content_type='text/xml')
 
 
+def ask_poll_duration(request: HttpRequest, element_id: int, session_id: int) -> HttpResponse:
+    """
+    Ask for the duration of a poll, and redirect to the confirmation element.
+    """
+    element = get_object_or_404(AskPollDuration, pk=element_id)
+    session = get_object_or_404(CallSession, pk=session_id)
+    session.record_step(element)
+
+    context = {'label_url': element.get_voice_fragment_url(session.language)}
+    return render(request, 'ask_poll_duration.xml', context, content_type='text/xml')
+
+
+def confirm_poll_duration(request: HttpRequest, element_id: int, session_id: int) -> HttpResponse:
+    """
+    Confirm the duration of a poll.
+
+    To both choice options the duration is sent as a GET parameter.
+    """
+    element = get_object_or_404(ConfirmPollDuration, pk=element_id)
+    session = get_object_or_404(CallSession, pk=session_id)
+    session.record_step(element)
+
+    duration = int(request.GET['duration'])  # in days
+
+    context = choice_generate_context(element, session)
+    context['duration'] = duration
+    context['duration_audio_urls'] = _convert_number_to_audio_urls(duration, session.language)
+    context['days_correct_url'] = element.days_correct_label.get_voice_fragment_url(session.language)
+
+    return render(request, 'confirm_poll_duration.xml', context, content_type='text/xml')
+
+
 def create_poll(request: HttpRequest, element_id: int, session_id: int) -> HttpResponse:
     """
     Create a new poll, and attach it to the current voice service.
+
+    Then, redirect to the next element (possibly confirmation).
     """
     element = get_object_or_404(CreatePoll, pk=element_id)
     session = get_object_or_404(CallSession, pk=session_id)
     session.record_step(element)
 
-    # We received a request to create a new poll
-    if request.method == 'POST':
-        old_poll: Poll = getattr(session.service, 'poll', None)
+    Poll.objects.filter(voice_service=session.service).update(voice_service=None)
 
-        if old_poll:
-            old_poll.voice_service = None
-            old_poll.save()
+    duration = int(request.GET['duration'])  # in days
+    poll = Poll.objects.create(voice_service=session.service, start_date=timezone.now(),
+                               duration=timedelta(days=duration))
+    VoteOption.objects.create(poll=poll, value=1)
+    VoteOption.objects.create(poll=poll, value=2)
 
-        duration = int(request.POST['duration'])  # in days
-        Poll.objects.create(
-            voice_service=session.service,
-            start_date=timezone.now(),
-            duration=timedelta(days=duration)
-        )
-
-        if not element.final_element and element.redirect:
-            return redirect(element.redirect.get_absolute_url(session))
-        else:
-            return HttpResponse(status=201)
-
+    if not element.final_element and element.redirect:
+        redirect_url = element.redirect.get_absolute_url(session)
     else:
-        context = {'label_url': element.get_voice_fragment_url(session.language)}
-        return render(request, 'poll_duration.xml', context, content_type='text/xml')
+        redirect_url = None
+
+    context = {
+        'audio_urls': [],
+        'redirect_url': redirect_url
+    }
+    return render(request, 'multi_audio_message.xml', context, content_type='text/xml')
+
+
+def confirm_poll_creation(request: HttpRequest, element_id: int, session_id: int) -> HttpResponse:
+    """
+    Confirm the duration of a freshly created poll.
+    """
+    element = get_object_or_404(ConfirmPollCreation, pk=element_id)
+    session = get_object_or_404(CallSession, pk=session_id)
+    session.record_step(element)
+
+    poll: Poll = session.service.poll
+
+    audio_urls = [element.get_voice_fragment_url(session.language)]
+    audio_urls.extend(_convert_number_to_audio_urls(poll.duration.days, session.language))
+    audio_urls.append(element.days_label.get_voice_fragment_url(session.language))
+
+    if not element.final_element and element.redirect:
+        redirect_url = element.redirect.get_absolute_url(session)
+    else:
+        redirect_url = None
+
+    context = {
+        'audio_urls': audio_urls,
+        'redirect_url': redirect_url
+    }
+    return render(request, 'multi_audio_message.xml', context, content_type='text/xml')
 
 
 def _convert_number_to_audio_urls(num: int, language: Language) -> List[str]:

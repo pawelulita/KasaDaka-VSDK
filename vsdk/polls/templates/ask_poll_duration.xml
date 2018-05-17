@@ -11,7 +11,7 @@
             </prompt>
 
             <filled>
-                <submit next="{{ request.path }}" namelist="duration" method="POST"/>
+                <submit next="{{ request.path }}" namelist="duration"/>
             </filled>
         </field>
     </form>

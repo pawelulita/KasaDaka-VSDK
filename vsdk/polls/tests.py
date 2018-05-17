@@ -1,7 +1,6 @@
 from datetime import timedelta
 
 from django.test import TestCase
-from django.urls import reverse
 from django.utils import timezone
 
 from vsdk.polls.models import Poll, VoteOption, Vote, VoteResult, CreatePoll
@@ -75,47 +74,45 @@ class TestCreatePoll(TestCase):
             registration='disabled'
         )
         self.session = CallSession.objects.create(service=self.voice_service)
-        self.element = CreatePoll.objects.create(service=self.voice_service)
 
     @property
     def voice_service(self):
         return VoiceService.objects.get(id=self._voice_service.id)
 
     def test_create_poll_when_no_poll(self):
-        poll_before_creation = getattr(self.voice_service, 'poll', None)
-        self.assertIsNone(poll_before_creation)
+        element = CreatePoll.objects.create(service=self.voice_service)
 
-        url = reverse(
-            'polls:create-poll',
-            kwargs={
-                'element_id': self.element.id,
-                'session_id': self.session.id
-            }
-        )
-        result = self.client.post(url, data={'duration': 100000})
-        self.assertEqual(result.status_code, 201)
+        polls_before = Poll.objects.count()
+        self.assertEqual(polls_before, 0)
 
-        poll_after_creation = self.voice_service.poll
-        self.assertIsNotNone(poll_after_creation)
+        url = element.get_absolute_url(self.session)
+        result = self.client.get(url, data={'duration': 100000})
+        self.assertEqual(result.status_code, 200)
+
+        polls_after = Poll.objects.count()
+
+        self.assertEqual(polls_before + 1, polls_after)
+        self.assertTrue(self.voice_service.poll.active)
+        self.assertEqual(self.voice_service.poll.vote_options.count(), 2)
 
     def test_create_poll_when_poll_exists(self):
-        old_poll = Poll.objects.create(
-            voice_service=self.voice_service,
-            start_date=timezone.now(),
-            duration=timedelta(1000)
-        )
-        self.assertIsNotNone(getattr(self.voice_service, 'poll', None))
+        element = CreatePoll.objects.create(service=self.voice_service)
+        old_poll = Poll.objects.create(voice_service=self.voice_service,
+                                       start_date=timezone.now(),
+                                       duration=timedelta(days=10))
+        polls_before = Poll.objects.count()
 
-        url = reverse(
-            'polls:create-poll',
-            kwargs={
-                'element_id': self.element.id,
-                'session_id': self.session.id
-            }
-        )
-        result = self.client.post(url, data={'duration': 100000})
-        self.assertEqual(result.status_code, 201)
+        self.assertEqual(polls_before, 1)
+        self.assertTrue(old_poll.active)
+        self.assertEqual(old_poll.id, self.voice_service.poll.id)
 
-        new_poll = self.voice_service.poll
-        self.assertIsNotNone(new_poll)
-        self.assertNotEqual(old_poll.id, new_poll.id)
+        url = element.get_absolute_url(self.session)
+        result = self.client.get(url, data={'duration': 100000})
+        self.assertEqual(result.status_code, 200)
+
+        polls_after = Poll.objects.count()
+
+        self.assertEqual(polls_before + 1, polls_after)
+        self.assertTrue(self.voice_service.poll.active)
+        self.assertNotEqual(old_poll.id, self.voice_service.poll.id)
+        self.assertEqual(self.voice_service.poll.vote_options.count(), 2)
