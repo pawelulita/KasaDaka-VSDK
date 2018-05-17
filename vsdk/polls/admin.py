@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from vsdk.service_development.admin import MessagePresentationAdmin
 from .models import (PollDurationPresentation, PollResultsPresentation, Poll, VoteOption, Vote,
-                     AskPollDuration)
+                     AskPollDuration, ConfirmPollDuration, CreatePoll, ConfirmPollCreation, EndPoll)
 
 
 class PollDurationPresentationAdmin(MessagePresentationAdmin):
@@ -36,3 +36,7 @@ admin.site.register(Poll, PollAdmin)
 admin.site.register(VoteOption)
 admin.site.register(Vote)
 admin.site.register(AskPollDuration)
+admin.site.register(ConfirmPollDuration)
+admin.site.register(CreatePoll)
+admin.site.register(ConfirmPollCreation)
+admin.site.register(EndPoll)
