@@ -57,6 +57,10 @@ class PollDurationPresentation(MessagePresentation):
         if not self.no_active_poll_label:
             errors.append(ugettext('No label for no active poll is present'))
 
+        if not self.final_element and not self._no_active_poll_redirect:
+            errors.append(ugettext('No "no active poll" redirect element and '
+                                   'this is not a final element'))
+
         return errors
 
 
