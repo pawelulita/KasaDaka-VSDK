@@ -25,12 +25,8 @@ def poll_duration_presentation(request: HttpRequest,
     session = get_object_or_404(CallSession, pk=session_id)
     session.record_step(element)
 
-    if not element.final_element and element.redirect:
-        redirect_url = element.redirect.get_absolute_url(session)
-    else:
-        redirect_url = None
-
     poll = getattr(element.service, 'poll', None)
+    redirect_url = None
 
     # There's an active poll
     if poll and poll.active:
@@ -40,9 +36,15 @@ def poll_duration_presentation(request: HttpRequest,
 
         audio_urls = [prefix_url] + number_urls + [minutes_url]
 
+        if not element.final_element and element.redirect:
+            redirect_url = element.redirect.get_absolute_url(session)
+
     # Anything else (e.g. no active poll, no user attached to this session)
     else:
         audio_urls = [element.no_active_poll_label.get_voice_fragment_url(session.language)]
+
+        if not element.final_element and element.no_active_poll_redirect:
+            redirect_url = element.redirect.get_absolute_url(session)
 
     context = {
         'audio_urls': audio_urls,

@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext
 
-from vsdk.service_development.models import MessagePresentation, VoiceLabel, Choice
+from vsdk.service_development.models import (MessagePresentation, VoiceLabel, Choice,
+                                             VoiceServiceElement)
 
 
 class PollDurationPresentation(MessagePresentation):
@@ -24,6 +25,28 @@ class PollDurationPresentation(MessagePresentation):
         null=True,
         blank=True,
     )
+
+    _no_active_poll_redirect = models.ForeignKey(
+        VoiceServiceElement,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='%(app_label)s_%(class)s_related',
+        verbose_name=_('No active poll redirect element'),
+        help_text=_("The element to redirect to after the message has been played,"
+                    "and there's no active poll."))
+
+    @property
+    def no_active_poll_redirect(self):
+        """
+        Returns the actual subclassed object that is redirected to,
+        instead of the VoiceServiceElement superclass object (which does
+        not have specific fields and methods).
+        """
+        if self._no_active_poll_redirect:
+            return VoiceServiceElement.objects.get_subclass(id=self._no_active_poll_redirect.id)
+        else:
+            return None
 
     def validator(self):
         errors = super().validator()
