@@ -31,6 +31,9 @@
 <button id="yesButton">Vote yes</button>
 <button id="noButton">Vote no</button>
 <div id="timeButtoned" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<h2>Live time chart</h2>
+<div id="timeLive" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </body>
 <script>
 
@@ -52,7 +55,7 @@
     });
 
 
-    const computePieChartData = (poll) => {
+    const computePieChartData = poll => {
         let results = new Map(poll.options.map(o => [o, new Set()]));
 
         sortChronologically(poll);
@@ -101,7 +104,7 @@
 
     /*  an array of [timestamp, value] is the required data */
 
-    const generateTimeSeries = (poll) => {
+    const generateTimeSeries = poll => {
         const modifyTimeSeries = (timeSeries, timeStamp, increment) => {
             const lastVal = timeSeries.length === 0 ? 0 : timeSeries[timeSeries.length - 1][1];
             timeSeries.push([timeStamp, increment ? lastVal + 1 : lastVal - 1])
@@ -201,12 +204,62 @@
             legend: {
                 enabled: true
             },
-            series: [{name : "yes", data: [], step: "end"}, {name : "no", data: [], step: "end"}]
+            series: [{name: "yes", data: [], step: "end"}, {name: "no", data: [], step: "end"}]
         });
     };
 
     drawButtonedTimeSeries("timeButtoned");
 
+    // animated. this below still needs to be updated to new JSON format
+
+    const drawLiveTimeSeries = (htmlID, url) => {
+        Highcharts.chart(htmlID, {
+            chart: {
+                zoomType: 'x',
+                animation: Highcharts.svg, // don't animate in old IE
+                events: {
+                    load: function () {
+                        setInterval(() => {
+                            fetch(url) // TODO: append to url: ?id=n
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error("shit");
+                                    } else {
+                                        return response.json();
+                                    }
+                                })
+                                .then(data => {
+                                    // TODO: do shit with data
+                                })
+                                .catch(e => console.error(e.stack));
+                        }, 5000);
+                    }
+                }
+            },
+            title: {
+                text: "What do you think?"
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Total number of bips (cumulative)'
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            series: [] // TODO: determine initial series
+        });
+    };
+
+
+    drawLiveTimeSeries("timeLive", url);
 
 </script>
 </html>
