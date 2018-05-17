@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from vsdk.polls.exceptions import NoCallerIDError
 from vsdk.polls.models import (VoteOption, Vote, Poll, PollResultsPresentation, AskPollDuration,
-                               ConfirmPollDuration, CreatePoll, ConfirmPollCreation)
+                               ConfirmPollDuration, CreatePoll, ConfirmPollCreation, EndPoll)
 from vsdk.polls.models.custom_elements import PollDurationPresentation
 from vsdk.service_development.models import CallSession, Language, VoiceService
 from vsdk.service_development.views import choice_generate_context
@@ -25,24 +25,26 @@ def poll_duration_presentation(request: HttpRequest,
     session = get_object_or_404(CallSession, pk=session_id)
     session.record_step(element)
 
-    if not element.final_element and element.redirect:
-        redirect_url = element.redirect.get_absolute_url(session)
-    else:
-        redirect_url = None
-
     poll = getattr(element.service, 'poll', None)
+    redirect_url = None
 
     # There's an active poll
     if poll and poll.active:
         prefix_url = element.get_voice_fragment_url(session.language)
-        number_urls = _convert_number_to_audio_urls(poll.remaining_minutes, session.language)
-        minutes_url = element.minutes_label.get_voice_fragment_url(session.language)
+        number_urls = _convert_number_to_audio_urls(poll.remaining_days, session.language)
+        days_url = element.days_label.get_voice_fragment_url(session.language)
 
-        audio_urls = [prefix_url] + number_urls + [minutes_url]
+        audio_urls = [prefix_url] + number_urls + [days_url]
+
+        if not element.final_element and element.redirect:
+            redirect_url = element.redirect.get_absolute_url(session)
 
     # Anything else (e.g. no active poll, no user attached to this session)
     else:
         audio_urls = [element.no_active_poll_label.get_voice_fragment_url(session.language)]
+
+        if not element.final_element and element.no_active_poll_redirect:
+            redirect_url = element.no_active_poll_redirect.get_absolute_url(session)
 
     context = {
         'audio_urls': audio_urls,
@@ -97,14 +99,9 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
     session = get_object_or_404(CallSession, pk=session_id)
     session.record_step(element)
 
-    if not element.final_element and element.redirect:
-        redirect_url = element.redirect.get_absolute_url(session)
-    else:
-        redirect_url = None
-
     poll: Poll = getattr(element.service, 'poll', None)
+    redirect_url = None
 
-    # There's an active poll
     if poll and poll.active:
         audio_urls = []
 
@@ -118,9 +115,19 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
             value_urls = _convert_number_to_audio_urls(vote_result.vote_value, session.language)
             audio_urls.extend(value_urls)
 
-    # Anything else (e.g. no active poll, no user attached to this session)
+        if not element.final_element and element.redirect:
+            redirect_url = element.redirect.get_absolute_url(session)
+
     else:
-        audio_urls = [element.no_active_poll_label.get_voice_fragment_url(session.language)]
+        audio_urls = [
+            element.in_previous_vote_label.get_voice_fragment_url(session.language),
+            _convert_number_to_audio_urls(0, session.language)[0],
+            element.get_voice_fragment_url(session.language),
+            _convert_number_to_audio_urls(0, session.language)[0]
+        ]
+
+        if not element.final_element and element.no_active_poll_redirect:
+            redirect_url = element.no_active_poll_redirect.get_absolute_url(session)
 
     context = {
         'audio_urls': audio_urls,
@@ -213,6 +220,28 @@ def confirm_poll_creation(request: HttpRequest, element_id: int, session_id: int
 
     context = {
         'audio_urls': audio_urls,
+        'redirect_url': redirect_url
+    }
+    return render(request, 'multi_audio_message.xml', context, content_type='text/xml')
+
+
+def end_poll(request: HttpRequest, element_id: int, session_id: int) -> HttpResponse:
+    """
+    End the current poll.
+    """
+    element = get_object_or_404(EndPoll, pk=element_id)
+    session = get_object_or_404(CallSession, pk=session_id)
+    session.record_step(element)
+
+    Poll.objects.filter(voice_service=session.service).update(voice_service=None)
+
+    if not element.final_element and element.redirect:
+        redirect_url = element.redirect.get_absolute_url(session)
+    else:
+        redirect_url = None
+
+    context = {
+        'audio_urls': [],
         'redirect_url': redirect_url
     }
     return render(request, 'multi_audio_message.xml', context, content_type='text/xml')

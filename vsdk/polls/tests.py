@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.test import TestCase
 from django.utils import timezone
 
-from vsdk.polls.models import Poll, VoteOption, Vote, VoteResult, CreatePoll
+from vsdk.polls.models import Poll, VoteOption, Vote, VoteResult, CreatePoll, EndPoll
 from vsdk.service_development.models import VoiceService, CallSession
 
 
@@ -116,3 +116,30 @@ class TestCreatePoll(TestCase):
         self.assertTrue(self.voice_service.poll.active)
         self.assertNotEqual(old_poll.id, self.voice_service.poll.id)
         self.assertEqual(self.voice_service.poll.vote_options.count(), 2)
+
+
+class TestEndPoll(TestCase):
+    @property
+    def voice_service(self):
+        return VoiceService.objects.get(id=self._voice_service.id)
+
+    def setUp(self):
+        self._voice_service = VoiceService.objects.create(
+            name='Test VS',
+            description='Description',
+            active=True,
+            registration='disabled'
+        )
+        self.session = CallSession.objects.create(service=self.voice_service)
+
+    def test_end_poll(self):
+        Poll.objects.create(voice_service=self.voice_service,
+                            start_date=timezone.now(),
+                            duration=timedelta(days=10))
+        self.assertEqual(Poll.objects.filter(voice_service=self.voice_service).count(), 1)
+
+        element = EndPoll.objects.create(service=self.voice_service)
+        url = element.get_absolute_url(self.session)
+        result = self.client.get(url)
+        self.assertEqual(result.status_code, 200)
+        self.assertEqual(Poll.objects.filter(voice_service=self.voice_service).count(), 0)
