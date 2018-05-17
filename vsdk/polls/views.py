@@ -44,7 +44,7 @@ def poll_duration_presentation(request: HttpRequest,
         audio_urls = [element.no_active_poll_label.get_voice_fragment_url(session.language)]
 
         if not element.final_element and element.no_active_poll_redirect:
-            redirect_url = element.redirect.get_absolute_url(session)
+            redirect_url = element.no_active_poll_redirect.get_absolute_url(session)
 
     context = {
         'audio_urls': audio_urls,
@@ -99,14 +99,9 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
     session = get_object_or_404(CallSession, pk=session_id)
     session.record_step(element)
 
-    if not element.final_element and element.redirect:
-        redirect_url = element.redirect.get_absolute_url(session)
-    else:
-        redirect_url = None
-
     poll: Poll = getattr(element.service, 'poll', None)
+    redirect_url = None
 
-    # There's an active poll
     if poll and poll.active:
         audio_urls = []
 
@@ -120,9 +115,19 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
             value_urls = _convert_number_to_audio_urls(vote_result.vote_value, session.language)
             audio_urls.extend(value_urls)
 
-    # Anything else (e.g. no active poll, no user attached to this session)
+        if not element.final_element and element.redirect:
+            redirect_url = element.redirect.get_absolute_url(session)
+
     else:
-        audio_urls = [element.no_active_poll_label.get_voice_fragment_url(session.language)]
+        audio_urls = [
+            element.in_previous_vote_label.get_voice_fragment_url(session.language),
+            _convert_number_to_audio_urls(0, session.language)[0],
+            element.get_voice_fragment_url(session.language),
+            _convert_number_to_audio_urls(0, session.language)[0]
+        ]
+
+        if not element.final_element and element.no_active_poll_redirect:
+            redirect_url = element.no_active_poll_redirect.get_absolute_url(session)
 
     context = {
         'audio_urls': audio_urls,
