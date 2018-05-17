@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from vsdk.polls.exceptions import NoCallerIDError
 from vsdk.polls.models import (VoteOption, Vote, Poll, PollResultsPresentation, AskPollDuration,
-                               ConfirmPollDuration, CreatePoll, ConfirmPollCreation)
+                               ConfirmPollDuration, CreatePoll, ConfirmPollCreation, EndPoll)
 from vsdk.polls.models.custom_elements import PollDurationPresentation
 from vsdk.service_development.models import CallSession, Language, VoiceService
 from vsdk.service_development.views import choice_generate_context
@@ -213,6 +213,28 @@ def confirm_poll_creation(request: HttpRequest, element_id: int, session_id: int
 
     context = {
         'audio_urls': audio_urls,
+        'redirect_url': redirect_url
+    }
+    return render(request, 'multi_audio_message.xml', context, content_type='text/xml')
+
+
+def end_poll(request: HttpRequest, element_id: int, session_id: int) -> HttpResponse:
+    """
+    End the current poll.
+    """
+    element = get_object_or_404(EndPoll, pk=element_id)
+    session = get_object_or_404(CallSession, pk=session_id)
+    session.record_step(element)
+
+    Poll.objects.filter(voice_service=session.service).update(voice_service=None)
+
+    if not element.final_element and element.redirect:
+        redirect_url = element.redirect.get_absolute_url(session)
+    else:
+        redirect_url = None
+
+    context = {
+        'audio_urls': [],
         'redirect_url': redirect_url
     }
     return render(request, 'multi_audio_message.xml', context, content_type='text/xml')

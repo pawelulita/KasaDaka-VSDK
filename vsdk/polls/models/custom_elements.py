@@ -104,3 +104,8 @@ class ConfirmPollCreation(MessagePresentation):
             errors.append(ugettext('No days label is present'))
 
         return errors
+
+
+class EndPoll(MessagePresentation):
+    _urls_name = 'polls:end-poll'
+
