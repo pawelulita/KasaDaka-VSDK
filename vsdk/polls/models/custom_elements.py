@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext
 
-from vsdk.service_development.models import MessagePresentation, VoiceLabel
+from vsdk.service_development.models import MessagePresentation, VoiceLabel, Choice
 
 
 class PollDurationPresentation(MessagePresentation):
@@ -58,5 +58,49 @@ class PollResultsPresentation(MessagePresentation):
         return errors
 
 
+class AskPollDuration(MessagePresentation):
+    _urls_name = 'polls:ask-poll-duration'
+
+
+class ConfirmPollDuration(Choice):
+    _urls_name = 'polls:confirm-poll-duration'
+
+    days_correct_label = models.ForeignKey(
+        VoiceLabel,
+        verbose_name=_('"Days correct" label'),
+        related_name='+',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    def validator(self):
+        errors = super().validator()
+
+        if not self.days_correct_label:
+            errors.append(ugettext('No "days correct" label is present'))
+
+        return errors
+
+
 class CreatePoll(MessagePresentation):
     _urls_name = 'polls:create-poll'
+
+
+class ConfirmPollCreation(MessagePresentation):
+    days_label = models.ForeignKey(
+        VoiceLabel,
+        verbose_name=_('Days label'),
+        related_name='+',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    def validator(self):
+        errors = super().validator()
+
+        if not self.days_label:
+            errors.append(ugettext('No days label is present'))
+
+        return errors
