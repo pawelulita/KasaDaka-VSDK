@@ -12,7 +12,7 @@
 </head>
 <body>
 <h1> JSON format</h1>
-  <p>VOTE: [{"id" : Int, "nr" : String, "option" : Int, "time" : Int}]</p>
+<p>VOTE: [{"id" : Int, "nr" : String, "option" : Int, "time" : Int}]</p>
 <h1>Visualization playground</h1>
 <h2>Pie charts</h2>
 <div id="pieChart1" style="width:49%; height:400px; display:inline-block;"></div>
@@ -29,188 +29,186 @@
 
 <h2>Live time chart</h2>
 <div id="timeLive" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-  
+
 <script>
-// Small scenario, in which the first voter changes its vote to 2 eventually 
+    // Small scenario, in which the first voter changes its vote to 2 eventually
 
 
-
-const poll = {
-    "options": [1, 2, 3],
-    "votes": [{"id": 1, "nr": "+31612345678", "option": 1, "time": 1526034794000},
-        {"id": 2, "nr": "+31611490678", "option": 2, "time": 1526034800000},
-        {"id": 3, "nr": "+31610040678", "option": 3, "time": 1526034840300},
-        {"id": 4, "nr": "+31612345678", "option": 2, "time": 1526034850000},
-        {"id": 5, "nr": "+31600029611", "option": 1, "time": 1526034999000}]
-};
-
-/* Pie charts */
-
-const sortChronologically = poll => ({
-    options: poll.options,
-    votes: poll.votes.sort((vote1, vote2) => vote1.time - vote2.time)
-});
-
-
-const computePieChartData = poll => {
-    let results = new Map(poll.options.map(o => [o, new Set()]));
-
-    sortChronologically(poll);
-    for (const vote of poll.votes) {
-        for (const o of poll.options) {
-            const voters = results.get(o);
-            if (o === vote.option) {
-                voters.add(vote.nr)
-            } else {
-                voters.delete(vote.nr)
-            }
-        }
-    }
-    return Array.from(results).map(x => [x[0], x[1].size]);
-};
-
-const drawPieChart = (htmlID, poll) => {
-    Highcharts.chart(htmlID, {
-        chart: {
-            type: 'pie',
-            options3d: {
-                enabled: true,
-                alpha: 45
-            }
-        },
-        title: {
-            text: "Poll results"
-        },
-        plotOptions: {
-            pie: {
-                innerSize: 75,
-                depth: 50
-            }
-        },
-        series: [{
-            name: 'Bips',
-            data: computePieChartData(poll)
-        }]
-    });
-};
-
-drawPieChart("pieChart1", poll);
-drawPieChart("pieChart2", poll);
-
-/* Time line */
-
-/*  an array of [timestamp, value] is the required data */
-
-const generateTimeSeries = poll => {
-    const modifyTimeSeries = (timeSeries, timeStamp, increment) => {
-        const lastVal = timeSeries.length === 0 ? 0 : timeSeries[timeSeries.length - 1][1];
-        timeSeries.push([timeStamp, increment ? lastVal + 1 : lastVal - 1])
+    const poll = {
+        "options": [1, 2, 3],
+        "votes": [{"id": 1, "nr": "+31612345678", "option": 1, "time": 1526034794000},
+            {"id": 2, "nr": "+31611490678", "option": 2, "time": 1526034800000},
+            {"id": 3, "nr": "+31610040678", "option": 3, "time": 1526034840300},
+            {"id": 4, "nr": "+31612345678", "option": 2, "time": 1526034850000},
+            {"id": 5, "nr": "+31600029611", "option": 1, "time": 1526034999000}]
     };
-    let results = new Map(poll.options.map(o => [o, []]));
-    let active_vote = new Map(); // phone number to option, for deduplicating/detecting changes
 
-    sortChronologically(poll);
+    /* Pie charts */
 
-    for (const vote of poll.votes) {
-        if (!active_vote.has(vote.nr)) { // this is the first vote cast by nr
-            active_vote.set(vote.nr, vote.option);
-            modifyTimeSeries(results.get(vote.option), vote.time, true)
-        } else if (active_vote.get(vote.nr) !== vote.option) { // changed vote
-            const previousOption = active_vote.get(vote.nr);
-            active_vote.set(vote.nr, vote.option);
-            modifyTimeSeries(results.get(previousOption), vote.time, false);
-            modifyTimeSeries(results.get(vote.option), vote.time, true)
-        } // else do nothing: bipped to previous option
-    }
-
-    return Array.from(results).map(x => ({name: x[0], data: x[1], step: 'end'}))
-};
-
-const drawTimeSeries = (htmlID, poll) => {
-    Highcharts.chart(htmlID, {
-        chart: {
-            zoomType: 'x'
-        },
-        title: {
-            text: poll.question
-        },
-        subtitle: {
-            text: document.ontouchstart === undefined ?
-                'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-        },
-        xAxis: {
-            type: 'datetime'
-        },
-        yAxis: {
-            title: {
-                text: 'Total number of bips (cumulative)'
-            }
-        },
-        legend: {
-            enabled: true
-        },
-        series: generateTimeSeries(poll)
+    const sortChronologically = poll => ({
+        options: poll.options,
+        votes: poll.votes.sort((vote1, vote2) => vote1.time - vote2.time)
     });
-};
 
-drawTimeSeries("timeStatic", poll);
 
-/* Manipulating with buttons, for demo */
+    const computePieChartData = poll => {
+        let results = new Map(poll.options.map(o => [o, new Set()]));
 
-const drawButtonedTimeSeries = htmlID => {
-    let yesBips = 0;
-    let noBips = 0;
-
-    Highcharts.chart(htmlID, {
-        chart: {
-            zoomType: 'x',
-            animation: Highcharts.svg, // don't animate in old IE
-            events: {
-                load: function () {
-                    document.getElementById("yesButton").addEventListener("click", () => {
-                        const series = this.series[0];
-                        const x = (new Date()).getTime(); // current time
-                        yesBips += 1;
-                        series.addPoint([x, yesBips], true, false);
-                    });
-
-                    document.getElementById("noButton").addEventListener("click", () => {
-                        const series = this.series[1];
-                        const x = (new Date()).getTime(); // current time
-                        noBips += 1;
-                        series.addPoint([x, noBips], true, false);
-                    })
+        sortChronologically(poll);
+        for (const vote of poll.votes) {
+            for (const o of poll.options) {
+                const voters = results.get(o);
+                if (o === vote.option) {
+                    voters.add(vote.nr)
+                } else {
+                    voters.delete(vote.nr)
                 }
             }
-        },
-        title: {
-            text: "What do you think?"
-        },
-        subtitle: {
-            text: document.ontouchstart === undefined ?
-                'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-        },
-        xAxis: {
-            type: 'datetime'
-        },
-        yAxis: {
+        }
+        return Array.from(results).map(x => [x[0], x[1].size]);
+    };
+
+    const drawPieChart = (htmlID, poll) => {
+        Highcharts.chart(htmlID, {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45
+                }
+            },
             title: {
-                text: 'Total number of bips (cumulative)'
-            }
-        },
-        legend: {
-            enabled: true
-        },
-        series: [{name: "yes", data: [], step: "end"}, {name: "no", data: [], step: "end"}]
-    });
-};
+                text: "Poll results"
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 75,
+                    depth: 50
+                }
+            },
+            series: [{
+                name: 'Bips',
+                data: computePieChartData(poll)
+            }]
+        });
+    };
 
-drawButtonedTimeSeries("timeButtoned");
+    drawPieChart("pieChart1", poll);
+    drawPieChart("pieChart2", poll);
 
-// animated. this below still needs to be updated to new JSON format
+    /* Time line */
 
-const drawLiveTimeSeries = (htmlID, url) => {
-    const getLatestSeries = () => {
+    /*  an array of [timestamp, value] is the required data */
+
+    const generateTimeSeries = poll => {
+        const modifyTimeSeries = (timeSeries, timeStamp, increment) => {
+            const lastVal = timeSeries.length === 0 ? 0 : timeSeries[timeSeries.length - 1][1];
+            timeSeries.push([timeStamp, increment ? lastVal + 1 : lastVal - 1])
+        };
+        let results = new Map(poll.options.map(o => [o, []]));
+        let active_vote = new Map(); // phone number to option, for deduplicating/detecting changes
+
+        sortChronologically(poll);
+
+        for (const vote of poll.votes) {
+            if (!active_vote.has(vote.nr)) { // this is the first vote cast by nr
+                active_vote.set(vote.nr, vote.option);
+                modifyTimeSeries(results.get(vote.option), vote.time, true)
+            } else if (active_vote.get(vote.nr) !== vote.option) { // changed vote
+                const previousOption = active_vote.get(vote.nr);
+                active_vote.set(vote.nr, vote.option);
+                modifyTimeSeries(results.get(previousOption), vote.time, false);
+                modifyTimeSeries(results.get(vote.option), vote.time, true)
+            } // else do nothing: bipped to previous option
+        }
+
+        return Array.from(results).map(x => ({name: x[0], data: x[1], step: 'end'}))
+    };
+
+    const drawTimeSeries = (htmlID, poll) => {
+        Highcharts.chart(htmlID, {
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: poll.question
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Total number of bips (cumulative)'
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            series: generateTimeSeries(poll)
+        });
+    };
+
+    drawTimeSeries("timeStatic", poll);
+
+    /* Manipulating with buttons, for demo */
+
+    const drawButtonedTimeSeries = htmlID => {
+        let yesBips = 0;
+        let noBips = 0;
+
+        Highcharts.chart(htmlID, {
+            chart: {
+                zoomType: 'x',
+                animation: Highcharts.svg, // don't animate in old IE
+                events: {
+                    load: function () {
+                        document.getElementById("yesButton").addEventListener("click", () => {
+                            const series = this.series[0];
+                            const x = (new Date()).getTime(); // current time
+                            yesBips += 1;
+                            series.addPoint([x, yesBips], true, false);
+                        });
+
+                        document.getElementById("noButton").addEventListener("click", () => {
+                            const series = this.series[1];
+                            const x = (new Date()).getTime(); // current time
+                            noBips += 1;
+                            series.addPoint([x, noBips], true, false);
+                        })
+                    }
+                }
+            },
+            title: {
+                text: "What do you think?"
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Total number of bips (cumulative)'
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            series: [{name: "yes", data: [], step: "end"}, {name: "no", data: [], step: "end"}]
+        });
+    };
+
+    drawButtonedTimeSeries("timeButtoned");
+
+    // live updating, given some url to a json file
+
+    const drawLiveTimeSeries = (htmlID, url) => {
         fetch(url)
             .then(response => {
                 if (!response.ok) {
@@ -219,62 +217,60 @@ const drawLiveTimeSeries = (htmlID, url) => {
                     return response.json();
                 }
             })
-            .then(data => {
-                return generateTimeSeries(data)
+            .then(initialData => {
+                const chart = Highcharts.chart(htmlID, {
+                    chart: {
+                        zoomType: 'x',
+                        animation: Highcharts.svg, // don't animate in old IE
+                        events: {
+                            load: function () {
+                                setInterval(() => {
+                                    fetch(url)
+                                        .then(response => {
+                                            if (!response.ok) {
+                                                throw new Error("Fetch response not ok: " + response.status);
+                                            } else {
+                                                return response.json();
+                                            }
+                                        })
+                                        .then(data => {
+                                            const latestSeries = generateTimeSeries(data);
+
+                                            for (const [i, seriesObject] of chart.series.entries()) {
+                                                seriesObject.setData(latestSeries[i].data);
+                                            }
+                                        })
+                                        .catch(e => console.error(e.stack));
+                                }, 1000);
+                            }
+                        }
+                    },
+                    title: {
+                        text: "What do you think?"
+                    },
+                    subtitle: {
+                        text: document.ontouchstart === undefined ?
+                            'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                    },
+                    xAxis: {
+                        type: 'datetime'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total number of bips (cumulative)'
+                        }
+                    },
+                    legend: {
+                        enabled: true
+                    },
+                    series: generateTimeSeries(initialData)
+                });
             })
             .catch(e => console.error(e.stack));
     };
 
-    // placeholder variables while fetching does not work
-    let dummyPoll = poll;
-    let id = 6;
-    let nr = "bla";
-    let time = 1526035500000;
 
-    const chart = Highcharts.chart(htmlID, {
-        chart: {
-            zoomType: 'x',
-            animation: Highcharts.svg, // don't animate in old IE
-            events: {
-                load: function () {
-                    setInterval(() => {
-                        // placeholder. demonstrates usage while fetching does not work
-                        let option = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
-                        dummyPoll.votes.push({id: id++, "nr": nr += 1, option: option, time: time += 5000});
-
-                        const newSeries = generateTimeSeries(dummyPoll); // here we would call getLatestSeries() instead
-
-                        for (const [i, seriesObject] of chart.series.entries()) {
-                            seriesObject.setData(newSeries[i].data);
-                        }
-                    }, 1000);
-                }
-            }
-        },
-        title: {
-            text: "What do you think?"
-        },
-        subtitle: {
-            text: document.ontouchstart === undefined ?
-                'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-        },
-        xAxis: {
-            type: 'datetime'
-        },
-        yAxis: {
-            title: {
-                text: 'Total number of bips (cumulative)'
-            }
-        },
-        legend: {
-            enabled: true
-        },
-        series: generateTimeSeries(dummyPoll) // replace with: getLatestSeries()
-    });
-};
-
-
-drawLiveTimeSeries("timeLive", "url to json file");
+    drawLiveTimeSeries("timeLive", "http://0.0.0.0:8000/server/results.json");
 </script>
 </body>
 </html>
