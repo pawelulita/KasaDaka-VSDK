@@ -210,26 +210,44 @@ drawButtonedTimeSeries("timeButtoned");
 // animated. this below still needs to be updated to new JSON format
 
 const drawLiveTimeSeries = (htmlID, url) => {
-    var chart = Highcharts.chart(htmlID, {
+    const getLatestSeries = () => {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Fetch response not ok: " + response.status);
+                } else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                return generateTimeSeries(data)
+            })
+            .catch(e => console.error(e.stack));
+    };
+
+    // placeholder variables while fetching does not work
+    let dummyPoll = poll;
+    let id = 6;
+    let nr = "bla";
+    let time = 1526035500000;
+
+    const chart = Highcharts.chart(htmlID, {
         chart: {
             zoomType: 'x',
             animation: Highcharts.svg, // don't animate in old IE
             events: {
                 load: function () {
                     setInterval(() => {
-                        fetch(url) // TODO: append to url: ?id=n
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error("Fetch response not ok.");
-                                } else {
-                                    return response.json();
-                                }
-                            })
-                            .then(data => {
-                                chart.series[0].setData(generateTimeSeries(data));
-                            })
-                            .catch(e => console.error(e.stack));
-                    }, 5000);
+                        // placeholder. demonstrates usage while fetching does not work
+                        let option = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+                        dummyPoll.votes.push({id: id++, "nr": nr += 1, option: option, time: time += 5000});
+
+                        const newSeries = generateTimeSeries(dummyPoll); // here we would call getLatestSeries() instead
+
+                        for (const [i, seriesObject] of chart.series.entries()) {
+                            seriesObject.setData(newSeries[i].data);
+                        }
+                    }, 1000);
                 }
             }
         },
@@ -251,12 +269,12 @@ const drawLiveTimeSeries = (htmlID, url) => {
         legend: {
             enabled: true
         },
-        series: generateTimeSeries(poll)
+        series: generateTimeSeries(dummyPoll) // replace with: getLatestSeries()
     });
 };
 
 
-drawLiveTimeSeries("timeLive", "http://127.0.0.1:8887/test.json");
+drawLiveTimeSeries("timeLive", "url to json file");
 </script>
 </body>
 </html>
