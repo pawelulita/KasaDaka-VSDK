@@ -33,7 +33,6 @@
 <script>
     // Small scenario, in which the first voter changes its vote to 2 eventually
 
-
     const poll = {
         "options": [1, 2, 3],
         "votes": [{"id": 1, "nr": "+31612345678", "option": 1, "time": 1526034794000},
@@ -268,7 +267,6 @@
             })
             .catch(e => console.error(e.stack));
     };
-
 
     drawLiveTimeSeries("timeLive", "http://0.0.0.0:8000/server/results.json");
 </script>
