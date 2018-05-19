@@ -42,6 +42,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'vsdk.polls.apps.PollsConfig',
     'vsdk.service_development.apps.ServiceDevelopmentConfig',
     'storages',
     'django.contrib.admin',
@@ -49,8 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'vsdk.polls.apps.PollsConfig'
+    'django.contrib.staticfiles'
 ]
 
 
