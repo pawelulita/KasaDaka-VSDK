@@ -211,7 +211,7 @@
   "model": "service_development.voicelabel",
   "pk": 31,
   "fields": {
-    "name": "\"more minutes\"",
+    "name": "more days",
     "description": null
   }
 },
@@ -1076,7 +1076,7 @@
   "fields": {
     "parent": 31,
     "language": 2,
-    "audio": "003_en.wav"
+    "audio": "003_en_MBVGRMH.wav"
   }
 },
 {
@@ -1388,7 +1388,7 @@
   "fields": {
     "service": 3,
     "creation_date": "2018-05-18T09:33:38.979Z",
-    "modification_date": "2018-05-19T13:15:30.181Z",
+    "modification_date": "2018-05-19T13:55:59.471Z",
     "name": "Present the remaining time [U]",
     "description": "",
     "voice_label": 30
@@ -1879,7 +1879,7 @@
   "model": "polls.polldurationpresentation",
   "pk": 36,
   "fields": {
-    "days_label": 49,
+    "days_label": 31,
     "no_active_poll_label": 34,
     "_no_active_poll_redirect": 40
   }
