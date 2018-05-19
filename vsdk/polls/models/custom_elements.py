@@ -33,7 +33,7 @@ class PollDurationPresentation(MessagePresentation):
         blank=True,
         related_name='%(app_label)s_%(class)s_related',
         verbose_name=_('No active poll redirect element'),
-        help_text=_("The element to redirect to after the message has been played,"
+        help_text=_("The element to redirect to after the message has been played, "
                     "and there's no active poll."))
 
     @property
@@ -52,7 +52,7 @@ class PollDurationPresentation(MessagePresentation):
         errors = super().validator()
 
         if not self.days_label:
-            errors.append(ugettext('No minutes label is present'))
+            errors.append(ugettext('No days label is present'))
 
         if not self.no_active_poll_label:
             errors.append(ugettext('No label for no active poll is present'))
@@ -69,7 +69,7 @@ class PollResultsPresentation(MessagePresentation):
 
     in_previous_vote_label = models.ForeignKey(
         VoiceLabel,
-        verbose_name=_('No active poll label'),
+        verbose_name=_('In previous vote label'),
         related_name='+',
         on_delete=models.PROTECT,
         null=True,
@@ -115,12 +115,21 @@ class AskPollDuration(MessagePresentation):
     _urls_name = 'polls:ask-poll-duration'
 
 
-class ConfirmPollDuration(Choice):
+class AskPollDurationConfirmation(Choice):
     _urls_name = 'polls:confirm-poll-duration'
 
-    days_correct_label = models.ForeignKey(
+    days_label = models.ForeignKey(
         VoiceLabel,
-        verbose_name=_('"Days correct" label'),
+        verbose_name=_('Days label'),
+        related_name='+',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    duration_correct_label = models.ForeignKey(
+        VoiceLabel,
+        verbose_name=_('"Duration correct" label'),
         related_name='+',
         on_delete=models.SET_NULL,
         null=True,
@@ -130,8 +139,11 @@ class ConfirmPollDuration(Choice):
     def validator(self):
         errors = super().validator()
 
-        if not self.days_correct_label:
-            errors.append(ugettext('No "days correct" label is present'))
+        if not self.days_label:
+            errors.append(ugettext('No days label is present'))
+
+        if not self.duration_correct_label:
+            errors.append(ugettext('No "duration correct" label is present'))
 
         return errors
 
@@ -141,6 +153,8 @@ class CreatePoll(MessagePresentation):
 
 
 class ConfirmPollCreation(MessagePresentation):
+    _urls_name = 'polls:poll-created'
+
     days_label = models.ForeignKey(
         VoiceLabel,
         verbose_name=_('Days label'),

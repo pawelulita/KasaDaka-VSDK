@@ -6,8 +6,9 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
 from vsdk.polls.exceptions import NoCallerIDError
-from vsdk.polls.models import (VoteOption, Vote, Poll, PollResultsPresentation, AskPollDuration,
-                               ConfirmPollDuration, CreatePoll, ConfirmPollCreation, EndPoll)
+from vsdk.polls.models import (VoteOption, Vote, Poll, PollResultsPresentation,
+                               AskPollDurationConfirmation, CreatePoll, ConfirmPollCreation, EndPoll,
+                               AskPollDuration)
 from vsdk.polls.models.custom_elements import PollDurationPresentation
 from vsdk.service_development.models import CallSession, Language, VoiceService
 from vsdk.service_development.views import choice_generate_context
@@ -145,26 +146,40 @@ def ask_poll_duration(request: HttpRequest, element_id: int, session_id: int) ->
     session = get_object_or_404(CallSession, pk=session_id)
     session.record_step(element)
 
-    context = {'label_url': element.get_voice_fragment_url(session.language)}
+    if not element.final_element and element.redirect:
+        redirect_url = element.redirect.get_absolute_url(session)
+    else:
+        redirect_url = None
+
+    context = {
+        'label_url': element.get_voice_fragment_url(session.language),
+        'redirect_url': redirect_url
+    }
     return render(request, 'ask_poll_duration.xml', context, content_type='text/xml')
 
 
-def confirm_poll_duration(request: HttpRequest, element_id: int, session_id: int) -> HttpResponse:
+def ask_poll_duration_confirmation(request: HttpRequest,
+                                   element_id: int,
+                                   session_id: int
+                                   ) -> HttpResponse:
     """
     Confirm the duration of a poll.
 
     To both choice options the duration is sent as a GET parameter.
     """
-    element = get_object_or_404(ConfirmPollDuration, pk=element_id)
+    element = get_object_or_404(AskPollDurationConfirmation, pk=element_id)
     session = get_object_or_404(CallSession, pk=session_id)
     session.record_step(element)
+
+    language = session.language
 
     duration = int(request.GET['duration'])  # in days
 
     context = choice_generate_context(element, session)
     context['duration'] = duration
-    context['duration_audio_urls'] = _convert_number_to_audio_urls(duration, session.language)
-    context['days_correct_url'] = element.days_correct_label.get_voice_fragment_url(session.language)
+    context['duration_audio_urls'] = _convert_number_to_audio_urls(duration, language)
+    context['days_url'] = element.days_label.get_voice_fragment_url(language)
+    context['days_correct_url'] = element.duration_correct_label.get_voice_fragment_url(language)
 
     return render(request, 'confirm_poll_duration.xml', context, content_type='text/xml')
 
@@ -199,7 +214,7 @@ def create_poll(request: HttpRequest, element_id: int, session_id: int) -> HttpR
     return render(request, 'multi_audio_message.xml', context, content_type='text/xml')
 
 
-def confirm_poll_creation(request: HttpRequest, element_id: int, session_id: int) -> HttpResponse:
+def confirm_poll_created(request: HttpRequest, element_id: int, session_id: int) -> HttpResponse:
     """
     Confirm the duration of a freshly created poll.
     """

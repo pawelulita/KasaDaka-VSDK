@@ -1,26 +1,48 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from django.utils.translation import ugettext_lazy as _
 
 from vsdk.service_development.admin import MessagePresentationAdmin
 from .models import (PollDurationPresentation, PollResultsPresentation, Poll, VoteOption, Vote,
-                     AskPollDuration, ConfirmPollDuration, CreatePoll, ConfirmPollCreation, EndPoll)
+                     AskPollDurationConfirmation, CreatePoll, ConfirmPollCreation, EndPoll,
+                     AskPollDuration)
 
 
 class PollDurationPresentationAdmin(MessagePresentationAdmin):
     fieldsets = MessagePresentationAdmin.fieldsets + [
-        (_('Minutes label'), {'fields': ['minutes_label', 'no_active_poll_label']})
-    ]
-
-
-class PollResultsPresentationAdmin(MessagePresentationAdmin):
-    fieldsets = MessagePresentationAdmin.fieldsets + [
-        (None, {'fields': ['no_active_poll_label']})
+        (None, {'fields': ['days_label', 'no_active_poll_label', '_no_active_poll_redirect']})
     ]
 
 
 admin.site.register(PollDurationPresentation, PollDurationPresentationAdmin)
+
+
+class PollResultsPresentationAdmin(MessagePresentationAdmin):
+    fieldsets = MessagePresentationAdmin.fieldsets + [
+        (None, {'fields': ['in_previous_vote_label', '_no_active_poll_redirect']})
+    ]
+
+
 admin.site.register(PollResultsPresentation, PollResultsPresentationAdmin)
+
+
+class PollResultsPresentationAdmin(MessagePresentationAdmin):
+    fieldsets = MessagePresentationAdmin.fieldsets + [
+        (None, {'fields': ['in_previous_vote_label', '_no_active_poll_redirect']})
+    ]
+
+
+admin.site.register(EndPoll, MessagePresentationAdmin)
+
+admin.site.register(AskPollDuration, MessagePresentationAdmin)
+
+
+class ConfirmPollCreationAdmin(MessagePresentationAdmin):
+    fieldsets = MessagePresentationAdmin.fieldsets + [
+        (None, {'fields': ['days_label']})
+    ]
+
+
+admin.site.register(ConfirmPollCreation, ConfirmPollCreationAdmin)
 
 
 class VoteOptionsInLine(admin.TabularInline):
@@ -35,8 +57,5 @@ class PollAdmin(ModelAdmin):
 admin.site.register(Poll, PollAdmin)
 admin.site.register(VoteOption)
 admin.site.register(Vote)
-admin.site.register(AskPollDuration)
-admin.site.register(ConfirmPollDuration)
+admin.site.register(AskPollDurationConfirmation)
 admin.site.register(CreatePoll)
-admin.site.register(ConfirmPollCreation)
-admin.site.register(EndPoll)
