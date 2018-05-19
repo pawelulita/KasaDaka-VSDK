@@ -7,7 +7,7 @@
         <property name="timeout" value="4s"/>
         <field name="duration" type="digits?maxlength=10">
             <prompt bargein="true">
-                {{ label_url }}
+                <audio src="{{ label_url }}"/>
             </prompt>
 
             <filled>
