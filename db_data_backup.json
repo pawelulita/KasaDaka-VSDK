@@ -328,6 +328,14 @@
   }
 },
 {
+  "model": "service_development.voicelabel",
+  "pk": 50,
+  "fields": {
+    "name": "Vote created",
+    "description": null
+  }
+},
+{
   "model": "service_development.language",
   "pk": 1,
   "fields": {
@@ -1333,6 +1341,24 @@
   }
 },
 {
+  "model": "service_development.voicefragment",
+  "pk": 123,
+  "fields": {
+    "parent": 50,
+    "language": 2,
+    "audio": "021_en.wav"
+  }
+},
+{
+  "model": "service_development.voicefragment",
+  "pk": 124,
+  "fields": {
+    "parent": 50,
+    "language": 3,
+    "audio": "021_fr.wav"
+  }
+},
+{
   "model": "service_development.voiceservicesubelement",
   "pk": 34,
   "fields": {
@@ -1578,10 +1604,10 @@
   "fields": {
     "service": 3,
     "creation_date": "2018-05-18T15:20:49.036Z",
-    "modification_date": "2018-05-18T18:41:25.351Z",
+    "modification_date": "2018-05-19T12:28:48.580Z",
     "name": "New vote: confirm created [U]",
     "description": "",
-    "voice_label": 40
+    "voice_label": 50
   }
 },
 {
@@ -1821,7 +1847,7 @@
   "pk": 55,
   "fields": {
     "final_element": false,
-    "_redirect": 46
+    "_redirect": 49
   }
 },
 {
