@@ -1364,7 +1364,7 @@
   "fields": {
     "service": 3,
     "creation_date": "2018-05-12T15:18:59.144Z",
-    "modification_date": "2018-05-18T15:27:43.824Z",
+    "modification_date": "2018-05-19T12:44:55.871Z",
     "name": "Create vote [U]",
     "description": "",
     "voice_label": 11
@@ -1611,6 +1611,18 @@
   }
 },
 {
+  "model": "service_development.voiceservicesubelement",
+  "pk": 56,
+  "fields": {
+    "service": 3,
+    "creation_date": "2018-05-19T12:44:45.976Z",
+    "modification_date": "2018-05-19T12:44:45.976Z",
+    "name": "New vote: confirm created (simple) [U]",
+    "description": "",
+    "voice_label": 50
+  }
+},
+{
   "model": "service_development.voiceserviceelement",
   "pk": 34,
   "fields": {}
@@ -1676,6 +1688,11 @@
   "fields": {}
 },
 {
+  "model": "service_development.voiceserviceelement",
+  "pk": 56,
+  "fields": {}
+},
+{
   "model": "service_development.voiceservice",
   "pk": 3,
   "fields": {
@@ -1692,6 +1709,141 @@
       2,
       3
     ]
+  }
+},
+{
+  "model": "service_development.kasadakauser",
+  "pk": 2,
+  "fields": {
+    "caller_id": "3333",
+    "first_name": "",
+    "last_name": "",
+    "creation_date": "2018-05-19T12:18:12.624Z",
+    "modification_date": "2018-05-19T12:18:12.624Z",
+    "language": 2,
+    "service": 3
+  }
+},
+{
+  "model": "service_development.callsession",
+  "pk": 10,
+  "fields": {
+    "start": null,
+    "end": null,
+    "user": null,
+    "caller_id": "22222",
+    "service": 3,
+    "_language": 2
+  }
+},
+{
+  "model": "service_development.callsession",
+  "pk": 11,
+  "fields": {
+    "start": "2018-05-19T12:14:22.264Z",
+    "end": null,
+    "user": null,
+    "caller_id": "3333",
+    "service": 3,
+    "_language": 2
+  }
+},
+{
+  "model": "service_development.callsession",
+  "pk": 12,
+  "fields": {
+    "start": "2018-05-19T12:14:58.589Z",
+    "end": "2018-05-19T12:17:04.503Z",
+    "user": null,
+    "caller_id": "3333",
+    "service": 3,
+    "_language": 2
+  }
+},
+{
+  "model": "service_development.callsession",
+  "pk": 13,
+  "fields": {
+    "start": "2018-05-19T12:16:48.634Z",
+    "end": null,
+    "user": null,
+    "caller_id": "3333",
+    "service": 3,
+    "_language": null
+  }
+},
+{
+  "model": "service_development.callsession",
+  "pk": 14,
+  "fields": {
+    "start": "2018-05-19T12:17:33.563Z",
+    "end": "2018-05-19T12:18:12.627Z",
+    "user": 2,
+    "caller_id": "3333",
+    "service": 3,
+    "_language": 2
+  }
+},
+{
+  "model": "service_development.callsession",
+  "pk": 15,
+  "fields": {
+    "start": "2018-05-19T12:18:21.159Z",
+    "end": "2018-05-19T12:19:34.437Z",
+    "user": 2,
+    "caller_id": "3333",
+    "service": 3,
+    "_language": 2
+  }
+},
+{
+  "model": "service_development.callsessionstep",
+  "pk": 82,
+  "fields": {
+    "time": "2018-05-19T12:17:04.506Z",
+    "session": 12,
+    "_visited_element": null,
+    "description": "Language selected, English"
+  }
+},
+{
+  "model": "service_development.callsessionstep",
+  "pk": 83,
+  "fields": {
+    "time": "2018-05-19T12:18:04.994Z",
+    "session": 14,
+    "_visited_element": null,
+    "description": "Language selected, English"
+  }
+},
+{
+  "model": "service_development.callsessionstep",
+  "pk": 84,
+  "fields": {
+    "time": "2018-05-19T12:18:12.628Z",
+    "session": 14,
+    "_visited_element": null,
+    "description": "Registered as user: 3333"
+  }
+},
+{
+  "model": "service_development.callsessionstep",
+  "pk": 85,
+  "fields": {
+    "time": "2018-05-19T12:18:21.200Z",
+    "session": 15,
+    "_visited_element": 35,
+    "description": null
+  }
+},
+{
+  "model": "service_development.callsessionstep",
+  "pk": 86,
+  "fields": {
+    "time": "2018-05-19T12:19:34.439Z",
+    "session": 15,
+    "_visited_element": 51,
+    "description": null
   }
 },
 {
@@ -1783,7 +1935,7 @@
   "pk": 34,
   "fields": {
     "final_element": false,
-    "_redirect": 55
+    "_redirect": 56
   }
 },
 {
@@ -1845,6 +1997,14 @@
 {
   "model": "service_development.messagepresentation",
   "pk": 55,
+  "fields": {
+    "final_element": false,
+    "_redirect": 49
+  }
+},
+{
+  "model": "service_development.messagepresentation",
+  "pk": 56,
   "fields": {
     "final_element": false,
     "_redirect": 49
