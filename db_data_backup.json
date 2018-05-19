@@ -1388,7 +1388,7 @@
   "fields": {
     "service": 3,
     "creation_date": "2018-05-18T09:33:38.979Z",
-    "modification_date": "2018-05-18T15:32:35.541Z",
+    "modification_date": "2018-05-19T13:15:30.181Z",
     "name": "Present the remaining time [U]",
     "description": "",
     "voice_label": 30
@@ -1879,7 +1879,7 @@
   "model": "polls.polldurationpresentation",
   "pk": 36,
   "fields": {
-    "days_label": 31,
+    "days_label": 49,
     "no_active_poll_label": 34,
     "_no_active_poll_redirect": 40
   }
