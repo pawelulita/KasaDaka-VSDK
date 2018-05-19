@@ -176,10 +176,12 @@ def ask_poll_duration_confirmation(request: HttpRequest,
     duration = int(request.GET['duration'])  # in days
 
     context = choice_generate_context(element, session)
-    context['duration'] = duration
-    context['duration_audio_urls'] = _convert_number_to_audio_urls(duration, language)
-    context['days_url'] = element.days_label.get_voice_fragment_url(language)
-    context['days_correct_url'] = element.duration_correct_label.get_voice_fragment_url(language)
+    context.update({
+        'duration': duration,
+        'duration_audio_urls': _convert_number_to_audio_urls(duration, language),
+        'days_url': element.days_label.get_voice_fragment_url(language),
+        'duration_correct_url': element.duration_correct_label.get_voice_fragment_url(language)
+    })
 
     return render(request, 'confirm_poll_duration.xml', context, content_type='text/xml')
 

@@ -7,7 +7,8 @@
                 {% for url in duration_audio_urls %}
                     <audio src="{{ url }}"/>
                 {% endfor %}
-                <audio src="{{ days_correct_url }}"/>
+                <audio src="{{ days_url }}"/>
+                <audio src="{{ duration_correct_url }}"/>
 
                 {% for option_voice_label in choice_options_voice_labels %}
                     <audio src="{{ language.get_interface_voice_label_url_dict.pre_choice_option }}"/>
