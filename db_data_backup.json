@@ -1825,15 +1825,6 @@
   }
 },
 {
-  "model": "polls.vote",
-  "pk": 1,
-  "fields": {
-    "caller_id": "33333",
-    "vote_option": 1,
-    "created": "2018-05-10T12:56:38.733Z"
-  }
-},
-{
   "model": "polls.polldurationpresentation",
   "pk": 36,
   "fields": {
