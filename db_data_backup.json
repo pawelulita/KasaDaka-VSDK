@@ -217,25 +217,9 @@
 },
 {
   "model": "service_development.voicelabel",
-  "pk": 33,
-  "fields": {
-    "name": "vote active (dummy)",
-    "description": null
-  }
-},
-{
-  "model": "service_development.voicelabel",
   "pk": 34,
   "fields": {
-    "name": "vote inactive (dummy)",
-    "description": null
-  }
-},
-{
-  "model": "service_development.voicelabel",
-  "pk": 35,
-  "fields": {
-    "name": "vote results (dummy)",
+    "name": "vote inactive",
     "description": null
   }
 },
@@ -243,7 +227,7 @@
   "model": "service_development.voicelabel",
   "pk": 36,
   "fields": {
-    "name": "how long should the vote run? (dummy)",
+    "name": "how long should the vote run?",
     "description": null
   }
 },
@@ -251,15 +235,7 @@
   "model": "service_development.voicelabel",
   "pk": 37,
   "fields": {
-    "name": "confirm duration (dummy)",
-    "description": null
-  }
-},
-{
-  "model": "service_development.voicelabel",
-  "pk": 38,
-  "fields": {
-    "name": "new vote started (dummy)",
+    "name": "confirm duration",
     "description": null
   }
 },
@@ -324,6 +300,30 @@
   "pk": 46,
   "fields": {
     "name": "ending the current vote",
+    "description": null
+  }
+},
+{
+  "model": "service_development.voicelabel",
+  "pk": 47,
+  "fields": {
+    "name": "people voted for option",
+    "description": null
+  }
+},
+{
+  "model": "service_development.voicelabel",
+  "pk": 48,
+  "fields": {
+    "name": "in the previous vote",
+    "description": null
+  }
+},
+{
+  "model": "service_development.voicelabel",
+  "pk": 49,
+  "fields": {
+    "name": "days",
     "description": null
   }
 },
@@ -1041,7 +1041,7 @@
   "fields": {
     "parent": 29,
     "language": 3,
-    "audio": "001_en_TD3INBb.wav"
+    "audio": "001_fr.wav"
   }
 },
 {
@@ -1059,7 +1059,7 @@
   "fields": {
     "parent": 30,
     "language": 3,
-    "audio": "002_en_hHvAKBk.wav"
+    "audio": "002_fr.wav"
   }
 },
 {
@@ -1082,29 +1082,11 @@
 },
 {
   "model": "service_development.voicefragment",
-  "pk": 89,
-  "fields": {
-    "parent": 33,
-    "language": 2,
-    "audio": "active_dummy_en.wav"
-  }
-},
-{
-  "model": "service_development.voicefragment",
-  "pk": 90,
-  "fields": {
-    "parent": 33,
-    "language": 3,
-    "audio": "active_dummy_en_fIPKNAH.wav"
-  }
-},
-{
-  "model": "service_development.voicefragment",
   "pk": 91,
   "fields": {
     "parent": 34,
     "language": 2,
-    "audio": "inactive_dummy_en.wav"
+    "audio": "012_en.wav"
   }
 },
 {
@@ -1113,25 +1095,7 @@
   "fields": {
     "parent": 34,
     "language": 3,
-    "audio": "inactive_dummy_en_lbuX6Y5.wav"
-  }
-},
-{
-  "model": "service_development.voicefragment",
-  "pk": 93,
-  "fields": {
-    "parent": 35,
-    "language": 2,
-    "audio": "results_dummy_en.wav"
-  }
-},
-{
-  "model": "service_development.voicefragment",
-  "pk": 94,
-  "fields": {
-    "parent": 35,
-    "language": 3,
-    "audio": "results_dummy_en_KnmhBoV.wav"
+    "audio": "012_fr.wav"
   }
 },
 {
@@ -1140,7 +1104,7 @@
   "fields": {
     "parent": 36,
     "language": 2,
-    "audio": "request_duration_dummy_en.wav"
+    "audio": "016_en_MsUe2M7.wav"
   }
 },
 {
@@ -1149,7 +1113,7 @@
   "fields": {
     "parent": 36,
     "language": 3,
-    "audio": "request_duration_dummy_en_UqY9nnK.wav"
+    "audio": "016_fr_sJbrMr3.wav"
   }
 },
 {
@@ -1158,7 +1122,7 @@
   "fields": {
     "parent": 37,
     "language": 2,
-    "audio": "duration_confirmation_dummy_en.wav"
+    "audio": "017_en.wav"
   }
 },
 {
@@ -1167,25 +1131,7 @@
   "fields": {
     "parent": 37,
     "language": 3,
-    "audio": "duration_confirmation_dummy_en_h27sFIp.wav"
-  }
-},
-{
-  "model": "service_development.voicefragment",
-  "pk": 99,
-  "fields": {
-    "parent": 38,
-    "language": 2,
-    "audio": "vote_started_dummy_en.wav"
-  }
-},
-{
-  "model": "service_development.voicefragment",
-  "pk": 100,
-  "fields": {
-    "parent": 38,
-    "language": 3,
-    "audio": "vote_started_dummy_en_7kBCXxL.wav"
+    "audio": "017_fr.wav"
   }
 },
 {
@@ -1203,7 +1149,7 @@
   "fields": {
     "parent": 39,
     "language": 3,
-    "audio": "022_en_dfIJUJr.wav"
+    "audio": "022_fr.wav"
   }
 },
 {
@@ -1221,7 +1167,7 @@
   "fields": {
     "parent": 40,
     "language": 3,
-    "audio": "011_en_Y80Pi71.wav"
+    "audio": "011_fr.wav"
   }
 },
 {
@@ -1239,7 +1185,7 @@
   "fields": {
     "parent": 41,
     "language": 3,
-    "audio": "0151_en_DF03Q4E.wav"
+    "audio": "0151_fr.wav"
   }
 },
 {
@@ -1257,7 +1203,7 @@
   "fields": {
     "parent": 42,
     "language": 3,
-    "audio": "008_en_Z9NLl0o.wav"
+    "audio": "008_fr.wav"
   }
 },
 {
@@ -1293,7 +1239,7 @@
   "fields": {
     "parent": 44,
     "language": 3,
-    "audio": "0031_en_RLju7Fs.wav"
+    "audio": "0031_fr.wav"
   }
 },
 {
@@ -1311,7 +1257,7 @@
   "fields": {
     "parent": 45,
     "language": 3,
-    "audio": "004_en_Lukn8ZY.wav"
+    "audio": "004_fr.wav"
   }
 },
 {
@@ -1329,112 +1275,166 @@
   "fields": {
     "parent": 46,
     "language": 3,
-    "audio": "007_en_bDf2XHz.wav"
+    "audio": "007_fr.wav"
+  }
+},
+{
+  "model": "service_development.voicefragment",
+  "pk": 117,
+  "fields": {
+    "parent": 47,
+    "language": 2,
+    "audio": "0061_en.wav"
+  }
+},
+{
+  "model": "service_development.voicefragment",
+  "pk": 118,
+  "fields": {
+    "parent": 47,
+    "language": 3,
+    "audio": "0061_fr.wav"
+  }
+},
+{
+  "model": "service_development.voicefragment",
+  "pk": 119,
+  "fields": {
+    "parent": 48,
+    "language": 2,
+    "audio": "013_en.wav"
+  }
+},
+{
+  "model": "service_development.voicefragment",
+  "pk": 120,
+  "fields": {
+    "parent": 48,
+    "language": 3,
+    "audio": "013_fr.wav"
+  }
+},
+{
+  "model": "service_development.voicefragment",
+  "pk": 121,
+  "fields": {
+    "parent": 49,
+    "language": 2,
+    "audio": "018_en.wav"
+  }
+},
+{
+  "model": "service_development.voicefragment",
+  "pk": 122,
+  "fields": {
+    "parent": 49,
+    "language": 3,
+    "audio": "018_fr.wav"
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 8,
+  "pk": 34,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T12:09:19.149Z",
-    "modification_date": "2018-05-03T14:03:28.181Z",
-    "name": "Welcome to BipVote",
+    "service": 3,
+    "creation_date": "2018-05-12T15:18:59.144Z",
+    "modification_date": "2018-05-18T15:27:43.824Z",
+    "name": "Create vote [U]",
+    "description": "",
+    "voice_label": 11
+  }
+},
+{
+  "model": "service_development.voiceservicesubelement",
+  "pk": 35,
+  "fields": {
+    "service": 3,
+    "creation_date": "2018-05-18T09:11:15.597Z",
+    "modification_date": "2018-05-18T15:35:02.998Z",
+    "name": "Welcome to BipVote [U]",
     "description": "",
     "voice_label": 29
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 10,
+  "pk": 36,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T12:43:06.400Z",
-    "modification_date": "2018-05-02T07:58:35.099Z",
-    "name": "DUMMY vote active",
+    "service": 3,
+    "creation_date": "2018-05-18T09:33:38.979Z",
+    "modification_date": "2018-05-18T15:32:35.541Z",
+    "name": "Present the remaining time [U]",
     "description": "",
-    "voice_label": 33
+    "voice_label": 30
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 12,
+  "pk": 37,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T14:55:19.734Z",
-    "modification_date": "2018-05-02T08:21:37.033Z",
-    "name": "CHOICE active: hear results or cancel",
+    "service": 3,
+    "creation_date": "2018-05-18T09:43:43.916Z",
+    "modification_date": "2018-05-18T10:54:35.065Z",
+    "name": "Vote results or end vote? [U]",
     "description": "",
     "voice_label": 44
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 13,
+  "pk": 38,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T14:55:19.740Z",
-    "modification_date": "2018-05-02T08:21:37.037Z",
-    "name": "tentative results",
+    "service": 3,
+    "creation_date": "2018-05-18T09:45:08.507Z",
+    "modification_date": "2018-05-18T10:43:20.752Z",
+    "name": "show tentative results",
     "description": "",
     "voice_label": 45
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 14,
+  "pk": 39,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T14:55:19.743Z",
-    "modification_date": "2018-05-02T08:21:37.039Z",
-    "name": "cancel current vote",
+    "service": 3,
+    "creation_date": "2018-05-18T09:45:08.508Z",
+    "modification_date": "2018-05-18T10:54:35.068Z",
+    "name": "end vote",
     "description": "",
     "voice_label": 46
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 16,
+  "pk": 40,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T15:16:03.878Z",
-    "modification_date": "2018-05-02T08:03:41.961Z",
-    "name": "DUMMY vote inactive",
+    "service": 3,
+    "creation_date": "2018-05-18T10:42:10.914Z",
+    "modification_date": "2018-05-18T15:32:48.498Z",
+    "name": "Vote results [U]",
     "description": "",
-    "voice_label": 34
+    "voice_label": 47
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 17,
+  "pk": 41,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T15:22:29.491Z",
-    "modification_date": "2018-05-02T08:03:21.390Z",
-    "name": "DUMMY tentative results",
-    "description": "",
-    "voice_label": 35
-  }
-},
-{
-  "model": "service_development.voiceservicesubelement",
-  "pk": 18,
-  "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T15:23:52.463Z",
-    "modification_date": "2018-05-02T08:21:14.947Z",
-    "name": "CHOICE: confirm ending vote",
+    "service": 3,
+    "creation_date": "2018-05-18T10:46:05.699Z",
+    "modification_date": "2018-05-18T13:51:05.202Z",
+    "name": "End vote? [U]",
     "description": "",
     "voice_label": 42
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 19,
+  "pk": 42,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T15:23:52.467Z",
-    "modification_date": "2018-05-01T15:25:07.193Z",
+    "service": 3,
+    "creation_date": "2018-05-18T10:46:05.702Z",
+    "modification_date": "2018-05-18T10:53:54.228Z",
     "name": "yes",
     "description": "",
     "voice_label": 21
@@ -1442,11 +1442,11 @@
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 20,
+  "pk": 43,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T15:23:52.468Z",
-    "modification_date": "2018-05-01T15:23:52.468Z",
+    "service": 3,
+    "creation_date": "2018-05-18T10:46:05.703Z",
+    "modification_date": "2018-05-18T10:53:54.229Z",
     "name": "no",
     "description": "",
     "voice_label": 22
@@ -1454,230 +1454,213 @@
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 21,
+  "pk": 44,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T15:24:35.212Z",
-    "modification_date": "2018-05-02T08:07:49.509Z",
-    "name": "confirmation: vote has been ended",
+    "service": 3,
+    "creation_date": "2018-05-18T10:47:31.389Z",
+    "modification_date": "2018-05-18T18:41:47.765Z",
+    "name": "End vote [U]",
+    "description": "",
+    "voice_label": 11
+  }
+},
+{
+  "model": "service_development.voiceservicesubelement",
+  "pk": 45,
+  "fields": {
+    "service": 3,
+    "creation_date": "2018-05-18T10:50:15.915Z",
+    "modification_date": "2018-05-18T18:42:31.360Z",
+    "name": "Vote ended confirmation [U]",
     "description": "",
     "voice_label": 40
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 22,
+  "pk": 46,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T15:32:34.446Z",
-    "modification_date": "2018-05-02T08:21:05.134Z",
-    "name": "CHOICE: start a new vote",
+    "service": 3,
+    "creation_date": "2018-05-18T13:52:08.585Z",
+    "modification_date": "2018-05-18T15:18:44.438Z",
+    "name": "Start new vote? [U]",
     "description": "",
     "voice_label": 41
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 23,
+  "pk": 47,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T15:32:34.452Z",
-    "modification_date": "2018-05-02T08:10:56.435Z",
-    "name": "Yes",
+    "service": 3,
+    "creation_date": "2018-05-18T13:52:08.588Z",
+    "modification_date": "2018-05-18T15:18:44.440Z",
+    "name": "yes",
     "description": "",
     "voice_label": 21
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 24,
+  "pk": 48,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T15:32:34.453Z",
-    "modification_date": "2018-05-02T08:10:56.437Z",
-    "name": "No",
+    "service": 3,
+    "creation_date": "2018-05-18T13:52:08.589Z",
+    "modification_date": "2018-05-18T13:53:37.390Z",
+    "name": "no",
     "description": "",
     "voice_label": 22
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 25,
+  "pk": 49,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T15:38:14.107Z",
-    "modification_date": "2018-05-02T09:47:58.060Z",
-    "name": "Thanks and goodbye",
+    "service": 3,
+    "creation_date": "2018-05-18T13:53:24.391Z",
+    "modification_date": "2018-05-18T13:53:24.391Z",
+    "name": "Thank you and goodbye [U]",
     "description": "",
     "voice_label": 39
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 26,
+  "pk": 51,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T15:44:47.741Z",
-    "modification_date": "2018-05-02T08:02:49.079Z",
-    "name": "DUMMY duration? (prompt + user integer input)",
-    "description": "",
-    "voice_label": 36
-  }
-},
-{
-  "model": "service_development.voiceservicesubelement",
-  "pk": 27,
-  "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T16:44:07.631Z",
-    "modification_date": "2018-05-02T08:02:28.292Z",
-    "name": "DUMMY chosen duration",
+    "service": 3,
+    "creation_date": "2018-05-18T14:43:33.791Z",
+    "modification_date": "2018-05-18T15:26:45.592Z",
+    "name": "Vote duration correct? [U]",
     "description": "",
     "voice_label": 37
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 28,
+  "pk": 52,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T16:45:45.598Z",
-    "modification_date": "2018-05-02T08:20:51.595Z",
-    "name": "CHOICE: is this duration correct?",
-    "description": "",
-    "voice_label": 43
-  }
-},
-{
-  "model": "service_development.voiceservicesubelement",
-  "pk": 29,
-  "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T16:45:45.605Z",
-    "modification_date": "2018-05-02T08:20:51.599Z",
-    "name": "Yes",
+    "service": 3,
+    "creation_date": "2018-05-18T14:44:24.570Z",
+    "modification_date": "2018-05-18T15:26:45.595Z",
+    "name": "yes",
     "description": "",
     "voice_label": 21
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 30,
+  "pk": 53,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T16:45:45.607Z",
-    "modification_date": "2018-05-02T08:20:51.601Z",
-    "name": "No",
+    "service": 3,
+    "creation_date": "2018-05-18T14:44:24.572Z",
+    "modification_date": "2018-05-18T15:19:20.711Z",
+    "name": "no",
     "description": "",
     "voice_label": 22
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 31,
+  "pk": 54,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-01T16:47:26.584Z",
-    "modification_date": "2018-05-02T09:47:51.175Z",
-    "name": "DUMMY a new vote has opened",
+    "service": 3,
+    "creation_date": "2018-05-18T15:17:49.116Z",
+    "modification_date": "2018-05-18T15:18:23.399Z",
+    "name": "New vote: duration? [U]",
     "description": "",
-    "voice_label": 38
+    "voice_label": 36
   }
 },
 {
   "model": "service_development.voiceservicesubelement",
-  "pk": 32,
+  "pk": 55,
   "fields": {
-    "service": 2,
-    "creation_date": "2018-05-03T13:29:06.391Z",
-    "modification_date": "2018-05-03T13:29:06.391Z",
-    "name": "Poll duration",
+    "service": 3,
+    "creation_date": "2018-05-18T15:20:49.036Z",
+    "modification_date": "2018-05-18T18:41:25.351Z",
+    "name": "New vote: confirm created [U]",
     "description": "",
-    "voice_label": 30
+    "voice_label": 40
   }
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 8,
+  "pk": 34,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 10,
+  "pk": 35,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 12,
+  "pk": 36,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 16,
+  "pk": 37,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 17,
+  "pk": 40,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 18,
+  "pk": 41,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 21,
+  "pk": 44,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 22,
+  "pk": 45,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 25,
+  "pk": 46,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 26,
+  "pk": 49,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 27,
+  "pk": 51,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 28,
+  "pk": 54,
   "fields": {}
 },
 {
   "model": "service_development.voiceserviceelement",
-  "pk": 31,
-  "fields": {}
-},
-{
-  "model": "service_development.voiceserviceelement",
-  "pk": 32,
+  "pk": 55,
   "fields": {}
 },
 {
   "model": "service_development.voiceservice",
-  "pk": 2,
+  "pk": 3,
   "fields": {
-    "name": "BipVote",
-    "description": "The voice-interactive application for the BipVote voting service",
-    "creation_date": "2018-05-01T12:01:17.865Z",
-    "modification_date": "2018-05-02T10:31:48.003Z",
+    "name": "BipVote Ultimate",
+    "description": "The ultimate version of BipVote",
+    "creation_date": "2018-05-18T09:08:35.313Z",
+    "modification_date": "2018-05-18T09:12:12.287Z",
     "active": true,
-    "_start_element": 8,
-    "registration": "preferred",
-    "registration_language": false,
+    "_start_element": 35,
+    "registration": "required",
+    "registration_language": true,
     "registration_name": false,
     "supported_languages": [
       2,
@@ -1687,131 +1670,139 @@
 },
 {
   "model": "service_development.choice",
-  "pk": 12,
+  "pk": 37,
   "fields": {}
 },
 {
   "model": "service_development.choice",
-  "pk": 18,
+  "pk": 41,
   "fields": {}
 },
 {
   "model": "service_development.choice",
-  "pk": 22,
+  "pk": 46,
   "fields": {}
 },
 {
   "model": "service_development.choice",
-  "pk": 28,
+  "pk": 51,
   "fields": {}
 },
 {
   "model": "service_development.choiceoption",
-  "pk": 13,
+  "pk": 38,
   "fields": {
-    "parent": 12,
-    "_redirect": 17
+    "parent": 37,
+    "_redirect": 40
   }
 },
 {
   "model": "service_development.choiceoption",
-  "pk": 14,
+  "pk": 39,
   "fields": {
-    "parent": 12,
-    "_redirect": 18
+    "parent": 37,
+    "_redirect": 41
   }
 },
 {
   "model": "service_development.choiceoption",
-  "pk": 19,
+  "pk": 42,
   "fields": {
-    "parent": 18,
-    "_redirect": 21
+    "parent": 41,
+    "_redirect": 44
   }
 },
 {
   "model": "service_development.choiceoption",
-  "pk": 20,
+  "pk": 43,
   "fields": {
-    "parent": 18,
-    "_redirect": 10
+    "parent": 41,
+    "_redirect": 36
   }
 },
 {
   "model": "service_development.choiceoption",
-  "pk": 23,
+  "pk": 47,
   "fields": {
-    "parent": 22,
-    "_redirect": 26
+    "parent": 46,
+    "_redirect": 54
   }
 },
 {
   "model": "service_development.choiceoption",
-  "pk": 24,
+  "pk": 48,
   "fields": {
-    "parent": 22,
-    "_redirect": 25
+    "parent": 46,
+    "_redirect": 49
   }
 },
 {
   "model": "service_development.choiceoption",
-  "pk": 29,
+  "pk": 52,
   "fields": {
-    "parent": 28,
-    "_redirect": 31
+    "parent": 51,
+    "_redirect": 34
   }
 },
 {
   "model": "service_development.choiceoption",
-  "pk": 30,
+  "pk": 53,
   "fields": {
-    "parent": 28,
-    "_redirect": 26
+    "parent": 51,
+    "_redirect": 54
   }
 },
 {
   "model": "service_development.messagepresentation",
-  "pk": 8,
+  "pk": 34,
   "fields": {
     "final_element": false,
-    "_redirect": 32
+    "_redirect": 55
   }
 },
 {
   "model": "service_development.messagepresentation",
-  "pk": 10,
+  "pk": 35,
   "fields": {
     "final_element": false,
-    "_redirect": 12
+    "_redirect": 36
   }
 },
 {
   "model": "service_development.messagepresentation",
-  "pk": 16,
+  "pk": 36,
   "fields": {
     "final_element": false,
-    "_redirect": 22
+    "_redirect": 37
   }
 },
 {
   "model": "service_development.messagepresentation",
-  "pk": 17,
+  "pk": 40,
   "fields": {
     "final_element": false,
-    "_redirect": 10
+    "_redirect": 36
   }
 },
 {
   "model": "service_development.messagepresentation",
-  "pk": 21,
+  "pk": 44,
   "fields": {
     "final_element": false,
-    "_redirect": 16
+    "_redirect": 45
   }
 },
 {
   "model": "service_development.messagepresentation",
-  "pk": 25,
+  "pk": 45,
+  "fields": {
+    "final_element": false,
+    "_redirect": 46
+  }
+},
+{
+  "model": "service_development.messagepresentation",
+  "pk": 49,
   "fields": {
     "final_element": true,
     "_redirect": null
@@ -1819,67 +1810,74 @@
 },
 {
   "model": "service_development.messagepresentation",
-  "pk": 26,
+  "pk": 54,
   "fields": {
     "final_element": false,
-    "_redirect": 27
+    "_redirect": 51
   }
 },
 {
   "model": "service_development.messagepresentation",
-  "pk": 27,
+  "pk": 55,
   "fields": {
     "final_element": false,
-    "_redirect": 28
+    "_redirect": 46
   }
 },
 {
-  "model": "service_development.messagepresentation",
-  "pk": 31,
-  "fields": {
-    "final_element": false,
-    "_redirect": 25
-  }
-},
-{
-  "model": "service_development.messagepresentation",
-  "pk": 32,
-  "fields": {
-    "final_element": false,
-    "_redirect": 12
-  }
-},
-{
-  "model": "polls.poll",
+  "model": "polls.vote",
   "pk": 1,
   "fields": {
-    "voice_service": 2,
-    "start_date": "2018-05-03T13:22:56.376Z",
-    "duration": "30 00:00:00"
-  }
-},
-{
-  "model": "polls.voteoption",
-  "pk": 1,
-  "fields": {
-    "poll": 1,
-    "value": 1
-  }
-},
-{
-  "model": "polls.voteoption",
-  "pk": 2,
-  "fields": {
-    "poll": 1,
-    "value": 2
+    "caller_id": "33333",
+    "vote_option": 1,
+    "created": "2018-05-10T12:56:38.733Z"
   }
 },
 {
   "model": "polls.polldurationpresentation",
-  "pk": 32,
+  "pk": 36,
   "fields": {
-    "minutes_label": 31,
-    "no_active_poll_label": 34
+    "days_label": 31,
+    "no_active_poll_label": 34,
+    "_no_active_poll_redirect": 40
   }
+},
+{
+  "model": "polls.pollresultspresentation",
+  "pk": 40,
+  "fields": {
+    "in_previous_vote_label": 48,
+    "_no_active_poll_redirect": 46
+  }
+},
+{
+  "model": "polls.askpollduration",
+  "pk": 54,
+  "fields": {}
+},
+{
+  "model": "polls.askpolldurationconfirmation",
+  "pk": 51,
+  "fields": {
+    "days_label": 49,
+    "duration_correct_label": 43
+  }
+},
+{
+  "model": "polls.createpoll",
+  "pk": 34,
+  "fields": {}
+},
+{
+  "model": "polls.confirmpollcreation",
+  "pk": 55,
+  "fields": {
+    "days_label": 49
+  }
+},
+{
+  "model": "polls.endpoll",
+  "pk": 44,
+  "fields": {}
 }
 ]
