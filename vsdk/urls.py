@@ -25,10 +25,7 @@ urlpatterns = [
     url(r'^', admin.site.urls),
     url(r'^vxml/', include('vsdk.service_development.urls')),
     url(r'^polls/', include('vsdk.polls.urls')),
-
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-#if not settings.DEBUG:
-#        urlpatterns += urlpatterns('',
-#                (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True, }),
-#                (r'^static/(?P<path>*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}))
+    url(r'^nums/', include('vsdk.nums.urls')),
+]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

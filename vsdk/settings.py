@@ -42,6 +42,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'vsdk.nums.apps.NumsConfig',
     'vsdk.polls.apps.PollsConfig',
     'vsdk.service_development.apps.ServiceDevelopmentConfig',
     'storages',

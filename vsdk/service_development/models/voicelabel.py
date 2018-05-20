@@ -7,6 +7,8 @@ from django.utils.safestring import mark_safe
 
 from .validators import validate_audio_file_extension, validate_audio_file_format
 
+from number_generator.program import *
+
 
 class VoiceLabel(models.Model):
     name = models.CharField(_('Name'),max_length=50)
@@ -32,7 +34,9 @@ class VoiceLabel(models.Model):
         return errors
 
     def get_voice_fragment_url(self, language):
-        return self.voicefragment_set.filter(language=language)[0].get_url()
+        result = self.voicefragment_set.filter(language=language)
+        if result: return result[0].get_url()
+        else: return ''
 
 class Language(models.Model):
     name = models.CharField(_('Name'),max_length=100, unique = True)
@@ -62,56 +66,181 @@ class Language(models.Model):
             verbose_name = _('Post-Choice Option voice label'),
             related_name = 'language_post_choice_option',
             help_text = _("The fragment that is to be played before a choice option (e.g. 'to select option X, [please press] 1')"))
-    one = models.ForeignKey('VoiceLabel',
-            on_delete = models.PROTECT,
-            verbose_name = ugettext("The number %(number)s")% {'number':'1'},
-            related_name = 'language_one',
-            help_text = ugettext('The number %(number)s')% {'number':'1'})
-    two = models.ForeignKey('VoiceLabel',
-            on_delete = models.PROTECT,
-            verbose_name = ugettext("The number %(number)s")% {'number':'2'},
-            related_name = 'language_two',
-            help_text = ugettext("The number %(number)s")% {'number':'2'})
-    three = models.ForeignKey('VoiceLabel',
-            on_delete = models.PROTECT,
-            verbose_name = ugettext("The number %(number)s")% {'number':'3'},
-            related_name = 'language_three',
-            help_text = ugettext("The number %(number)s")% {'number':'3'})
-    four = models.ForeignKey('VoiceLabel',
-            on_delete = models.PROTECT,
-            verbose_name = ugettext("The number %(number)s")% {'number':'4'},
-            related_name = 'language_four',
-            help_text = ugettext("The number %(number)s")% {'number':'4'})
-    five = models.ForeignKey('VoiceLabel',
-            on_delete = models.PROTECT,
-            verbose_name = ugettext("The number %(number)s")% {'number':'5'},
-            related_name = 'language_five',
-            help_text = ugettext("The number %(number)s")% {'number':'5'})
-    six = models.ForeignKey('VoiceLabel',
-            on_delete = models.PROTECT,
-            verbose_name = ugettext("The number %(number)s")% {'number':'6'},
-            related_name = 'language_six',
-            help_text = ugettext("The number %(number)s")% {'number':'6'})
-    seven = models.ForeignKey('VoiceLabel',
-            on_delete = models.PROTECT,
-            verbose_name = ugettext("The number %(number)s")% {'number':'7'},
-            related_name = 'language_seven',
-            help_text = ugettext("The number %(number)s")% {'number':'7'})
-    eight = models.ForeignKey('VoiceLabel',
-            on_delete = models.PROTECT,
-            verbose_name = ugettext("The number %(number)s")% {'number':'8'},
-            related_name = 'language_eight',
-            help_text = ugettext("The number %(number)s")% {'number':'8'})
-    nine = models.ForeignKey('VoiceLabel',
-            on_delete = models.PROTECT,
-            verbose_name = ugettext("The number %(number)s")% {'number':'9'},
-            related_name = 'language_nine',
-            help_text = ugettext("The number %(number)s")% {'number':'9'})
     zero = models.ForeignKey('VoiceLabel',
             on_delete = models.PROTECT,
             verbose_name = ugettext("The number %(number)s")% {'number':'0'},
             related_name = 'language_zero',
-            help_text = ugettext("The number %(number)s")% {'number':'0'})
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'0'})
+    one = models.ForeignKey('VoiceLabel',
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'1'},
+            related_name = 'language_one',
+            help_text = ugettext('The number %(number)s (for en,fr,bm)')% {'number':'1'})
+    two = models.ForeignKey('VoiceLabel',
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'2'},
+            related_name = 'language_two',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'2'})
+    three = models.ForeignKey('VoiceLabel',
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'3'},
+            related_name = 'language_three',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'3'})
+    four = models.ForeignKey('VoiceLabel',
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'4'},
+            related_name = 'language_four',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'4'})
+    five = models.ForeignKey('VoiceLabel',
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'5'},
+            related_name = 'language_five',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'5'})
+    six = models.ForeignKey('VoiceLabel',
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'6'},
+            related_name = 'language_six',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'6'})
+    seven = models.ForeignKey('VoiceLabel',
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'7'},
+            related_name = 'language_seven',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'7'})
+    eight = models.ForeignKey('VoiceLabel',
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'8'},
+            related_name = 'language_eight',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'8'})
+    nine = models.ForeignKey('VoiceLabel',
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'9'},
+            related_name = 'language_nine',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'9'})
+    ten = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'10'},
+            related_name = 'language_ten',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'10'})
+    eleven = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'11'},
+            related_name = 'language_eleven',
+            help_text = ugettext("The number %(number)s (for en,fr)")% {'number':'11'})
+    twelve = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'12'},
+            related_name = 'language_twelve',
+            help_text = ugettext("The number %(number)s (for en,fr)")% {'number':'12'})
+    thirteen = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'13'},
+            related_name = 'language_thirteen',
+            help_text = ugettext("The number %(number)s (for en,fr)")% {'number':'13'})
+    fourteen = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'14'},
+            related_name = 'language_fourteen',
+            help_text = ugettext("The number %(number)s (for en,fr)")% {'number':'14'})
+    fifteen = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'15'},
+            related_name = 'language_fifteen',
+            help_text = ugettext("The number %(number)s (for en,fr)")% {'number':'15'})
+    sixteen = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'16'},
+            related_name = 'language_sixteen',
+            help_text = ugettext("The number %(number)s (for en,fr)")% {'number':'16'})
+    seventeen = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'17'},
+            related_name = 'language_seventeen',
+            help_text = ugettext("The number %(number)s (for en)")% {'number':'17'})
+    eighteen = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'18'},
+            related_name = 'language_eighteen',
+            help_text = ugettext("The number %(number)s (for en)")% {'number':'18'})
+    nineteen = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'19'},
+            related_name = 'language_nineteen',
+            help_text = ugettext("The number %(number)s (for en)")% {'number':'19'})
+    twenty = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'20'},
+            related_name = 'language_twenty',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'20'})
+    thirty = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'30'},
+            related_name = 'language_thirty',
+            help_text = ugettext("The number %(number)s (for en,fr)")% {'number':'30'})
+    fourty = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'40'},
+            related_name = 'language_fourty',
+            help_text = ugettext("The number %(number)s (for en,fr)")% {'number':'40'})
+    fifty = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'50'},
+            related_name = 'language_fifty',
+            help_text = ugettext("The number %(number)s (for en,fr)")% {'number':'50'})
+    sixty = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'60'},
+            related_name = 'language_sixty',
+            help_text = ugettext("The number %(number)s (for en,fr)")% {'number':'60'})
+    seventy = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'70'},
+            related_name = 'language_seventy',
+            help_text = ugettext("The number %(number)s (for en)")% {'number':'70'})
+    eighty = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'80'},
+            related_name = 'language_eighty',
+            help_text = ugettext("The number %(number)s (for en,fr)")% {'number':'80'})
+    ninety = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'90'},
+            related_name = 'language_ninety',
+            help_text = ugettext("The number %(number)s (for en)")% {'number':'90'})
+    hundred = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'100'},
+            related_name = 'language_hundred',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'100'})
+    thousand = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number %(number)s")% {'number':'1000'},
+            related_name = 'language_thousand',
+            help_text = ugettext("The number %(number)s (for en,fr,bm)")% {'number':'1000'})
+    andsep = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number separator %(number)s")% {'number':'and'},
+            related_name = 'language_and',
+            help_text = ugettext("The number separator %(number)s (for en,fr,bm)")% {'number':'and'})
+    commasep = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number separator %(number)s")% {'number':'comma'},
+            related_name = 'language_comma',
+            help_text = ugettext("The number separator %(number)s (for en,fr: a small silence)")% {'number':'comma'})
+    tens = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number multitude %(number)s")% {'number':'10'},
+            related_name = 'language_tens',
+            help_text = ugettext("The number multitude %(number)s (for bm)")% {'number':'10'})
+    hundreds = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number multitude %(number)s")% {'number':'100'},
+            related_name = 'language_hundreds',
+            help_text = ugettext("The number multitude %(number)s (for fr,bm)")% {'number':'100'})
+    thousands = models.ForeignKey('VoiceLabel', null = True, default = None, blank = True,
+            on_delete = models.PROTECT,
+            verbose_name = ugettext("The number multitude %(number)s")% {'number':'1000'},
+            related_name = 'language_thousands',
+            help_text = ugettext("The number multitude %(number)s (for bm)")% {'number':'1000'})
 
     class Meta:
         verbose_name = _('Language')
@@ -145,6 +274,57 @@ class Language(models.Model):
         for number in numbers:
             result.append(number.get_voice_fragment_url(self))
         return result
+    
+    @property
+    def get_interface_numbers_voice_label_url_dict(self):
+        result = {}
+        if self.zero: result[0] = self.zero.get_voice_fragment_url(self)
+        if self.one: result[1] = self.one.get_voice_fragment_url(self)
+        if self.two: result[2] = self.two.get_voice_fragment_url(self)
+        if self.three: result[3] = self.three.get_voice_fragment_url(self)
+        if self.four: result[4] = self.four.get_voice_fragment_url(self)
+        if self.five: result[5] = self.five.get_voice_fragment_url(self)
+        if self.six: result[6] = self.six.get_voice_fragment_url(self)
+        if self.seven: result[7] = self.seven.get_voice_fragment_url(self)
+        if self.eight: result[8] = self.eight.get_voice_fragment_url(self)
+        if self.nine: result[9] = self.nine.get_voice_fragment_url(self)
+        if self.ten: result[10] = self.ten.get_voice_fragment_url(self)
+        if self.eleven: result[11] = self.eleven.get_voice_fragment_url(self)
+        if self.twelve: result[12] = self.twelve.get_voice_fragment_url(self)
+        if self.thirteen: result[13] = self.thirteen.get_voice_fragment_url(self)
+        if self.fourteen: result[14] = self.fourteen.get_voice_fragment_url(self)
+        if self.fifteen: result[15] = self.fifteen.get_voice_fragment_url(self)
+        if self.sixteen: result[16] = self.sixteen.get_voice_fragment_url(self)
+        if self.seventeen: result[17] = self.seventeen.get_voice_fragment_url(self)
+        if self.eighteen: result[18] = self.eighteen.get_voice_fragment_url(self)
+        if self.nineteen: result[19] = self.nineteen.get_voice_fragment_url(self)
+        if self.twenty: result[20] = self.twenty.get_voice_fragment_url(self)
+        if self.thirty: result[30] = self.thirty.get_voice_fragment_url(self)
+        if self.fourty: result[40] = self.fourty.get_voice_fragment_url(self)
+        if self.fifty: result[50] = self.fifty.get_voice_fragment_url(self)
+        if self.sixty: result[60] = self.sixty.get_voice_fragment_url(self)
+        if self.seventy: result[70] = self.seventy.get_voice_fragment_url(self)
+        if self.eighty: result[80] = self.eighty.get_voice_fragment_url(self)
+        if self.ninety: result[90] = self.ninety.get_voice_fragment_url(self)
+        if self.hundred: result[100] = self.hundred.get_voice_fragment_url(self)
+        if self.thousand: result[1000] = self.thousand.get_voice_fragment_url(self)
+        if self.andsep: result['and'] = self.andsep.get_voice_fragment_url(self)
+        if self.commasep: result['comma'] = self.commasep.get_voice_fragment_url(self)
+        if self.tens: result['10s'] = self.tens.get_voice_fragment_url(self)
+        if self.hundreds: result['100s'] = self.hundreds.get_voice_fragment_url(self)
+        if self.thousands: result['1000s'] = self.thousands.get_voice_fragment_url(self)
+        return result
+    
+    def generate_number(self,d):
+        code = '%s' % (self.code)
+        dict = self.get_interface_numbers_voice_label_url_dict
+        if (code == 'en'):
+            return generate_num_english(d, dict);
+        if (code == 'fr'):
+            return generate_numb_french(d, dict);
+        if (code == 'bm'):
+            return generate_num_bambara(d, dict);
+        return []
 
     @property
     def get_interface_voice_label_url_dict(self):
