@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
 from .views import (handle_bip, poll_results, ask_poll_duration, ask_poll_duration_confirmation,
-                    poll_duration_presentation, create_poll, end_poll, confirm_poll_created)
+                    poll_duration_presentation, create_poll, end_poll, confirm_poll_created,
+                    votes_json)
 
 app_name = 'polls'
 urlpatterns = [
@@ -20,4 +21,5 @@ urlpatterns = [
         confirm_poll_created, name='poll-created'),
     url(r'^end-poll/(?P<element_id>[0-9]+)/(?P<session_id>[0-9]+)$',
         end_poll, name='end-poll'),
+    url(r'^votes-json/(?P<poll_id>[0-9]+)$', votes_json, name='votes-json'),
 ]

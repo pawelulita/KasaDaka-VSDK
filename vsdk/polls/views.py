@@ -1,13 +1,14 @@
 from datetime import timedelta
 from typing import List
 
-from django.http import HttpResponse, HttpRequest, Http404
+from django.http import HttpResponse, HttpRequest, Http404, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
 from vsdk.polls.exceptions import NoCallerIDError
 from vsdk.polls.models import (VoteOption, Vote, Poll, PollResultsPresentation,
-                               AskPollDurationConfirmation, CreatePoll, ConfirmPollCreation, EndPoll,
+                               AskPollDurationConfirmation, CreatePoll, ConfirmPollCreation,
+                               EndPoll,
                                AskPollDuration)
 from vsdk.polls.models.custom_elements import PollDurationPresentation
 from vsdk.service_development.models import CallSession, Language, VoiceService
@@ -262,6 +263,41 @@ def end_poll(request: HttpRequest, element_id: int, session_id: int) -> HttpResp
         'redirect_url': redirect_url
     }
     return render(request, 'multi_audio_message.xml', context, content_type='text/xml')
+
+
+def votes_json(request: HttpRequest, poll_id: int) -> HttpResponse:
+    """
+    Get the votes for a poll in a JSON format.
+
+    Example:
+    {
+        "options": [1, 2, 3],
+        "votes": [
+            {"id": 1, "nr": "+31611490678", "option": 1, "time": 1526034800000},
+            {"id": 2, "nr": "+31611490678", "option": 2, "time": 1526034800001},
+            {"id": 3, "nr": "+31611490679", "option": 2, "time": 1526034800002},
+        ]
+    }
+
+    `options` contains all possible options vor this poll, and `time` is a Unix timestamp.
+    """
+    poll = get_object_or_404(Poll, pk=poll_id)
+    votes = Vote.objects.filter(vote_option__poll=poll).prefetch_related('vote_option')
+
+    results = {
+        'options': [vo.value for vo in poll.vote_options.all()],
+        'votes': [
+            {
+                'id': vote.id,
+                'nr': vote.caller_id,
+                'option': vote.vote_option.value,
+                'time': int(vote.created.timestamp())
+            }
+            for vote in votes
+        ]
+    }
+
+    return JsonResponse(results)
 
 
 def _convert_number_to_audio_urls(num: int, language: Language) -> List[str]:
