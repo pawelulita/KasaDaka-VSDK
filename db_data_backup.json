@@ -2771,270 +2771,6 @@
   }
 },
 {
-  "model": "contenttypes.contenttype",
-  "pk": 1,
-  "fields": {
-    "app_label": "polls",
-    "model": "poll"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 2,
-  "fields": {
-    "app_label": "polls",
-    "model": "vote"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 3,
-  "fields": {
-    "app_label": "polls",
-    "model": "voteoption"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 4,
-  "fields": {
-    "app_label": "polls",
-    "model": "polldurationpresentation"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 5,
-  "fields": {
-    "app_label": "polls",
-    "model": "pollresultspresentation"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 6,
-  "fields": {
-    "app_label": "polls",
-    "model": "askpollduration"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 7,
-  "fields": {
-    "app_label": "polls",
-    "model": "askpolldurationconfirmation"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 8,
-  "fields": {
-    "app_label": "polls",
-    "model": "createpoll"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 9,
-  "fields": {
-    "app_label": "polls",
-    "model": "confirmpollcreation"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 10,
-  "fields": {
-    "app_label": "polls",
-    "model": "endpoll"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 11,
-  "fields": {
-    "app_label": "service_development",
-    "model": "voicelabel"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 12,
-  "fields": {
-    "app_label": "service_development",
-    "model": "language"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 13,
-  "fields": {
-    "app_label": "service_development",
-    "model": "voicefragment"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 14,
-  "fields": {
-    "app_label": "service_development",
-    "model": "voiceservicesubelement"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 15,
-  "fields": {
-    "app_label": "service_development",
-    "model": "voiceserviceelement"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 16,
-  "fields": {
-    "app_label": "service_development",
-    "model": "voiceservice"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 17,
-  "fields": {
-    "app_label": "service_development",
-    "model": "kasadakauser"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 18,
-  "fields": {
-    "app_label": "service_development",
-    "model": "callsession"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 19,
-  "fields": {
-    "app_label": "service_development",
-    "model": "callsessionstep"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 20,
-  "fields": {
-    "app_label": "service_development",
-    "model": "choice"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 21,
-  "fields": {
-    "app_label": "service_development",
-    "model": "choiceoption"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 22,
-  "fields": {
-    "app_label": "service_development",
-    "model": "messagepresentation"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 23,
-  "fields": {
-    "app_label": "service_development",
-    "model": "userinputcategory"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 24,
-  "fields": {
-    "app_label": "service_development",
-    "model": "spokenuserinput"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 25,
-  "fields": {
-    "app_label": "service_development",
-    "model": "record"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 26,
-  "fields": {
-    "app_label": "admin",
-    "model": "logentry"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 27,
-  "fields": {
-    "app_label": "auth",
-    "model": "permission"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 28,
-  "fields": {
-    "app_label": "auth",
-    "model": "group"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 29,
-  "fields": {
-    "app_label": "auth",
-    "model": "user"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 30,
-  "fields": {
-    "app_label": "contenttypes",
-    "model": "contenttype"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 31,
-  "fields": {
-    "app_label": "sessions",
-    "model": "session"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 32,
-  "fields": {
-    "app_label": "nums",
-    "model": "numberpresentation"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "n7yvjfau0o0cx96pet09zg3d2tprsg0t",
-  "fields": {
-    "session_data": "MGFhNWJhMTA1MWYxMjUxMjUxMmM1OTUwMDE1MmViMzZjMGZlYzNmMTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjMmNkNzdmYzMzMTBhYjFiOThkYzE4YWMzMjVhMjZiNjc0OGQ4ZWIxIn0=",
-    "expire_date": "2018-06-03T18:07:01.491Z"
-  }
-},
-{
   "model": "auth.permission",
   "pk": 1,
   "fields": {
@@ -3926,6 +3662,534 @@
     "date_joined": "2018-05-20T18:04:17.809Z",
     "groups": [],
     "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "n7yvjfau0o0cx96pet09zg3d2tprsg0t",
+  "fields": {
+    "session_data": "MGFhNWJhMTA1MWYxMjUxMjUxMmM1OTUwMDE1MmViMzZjMGZlYzNmMTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjMmNkNzdmYzMzMTBhYjFiOThkYzE4YWMzMjVhMjZiNjc0OGQ4ZWIxIn0=",
+    "expire_date": "2018-06-03T18:07:01.491Z"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2018-05-20T18:07:56.523Z",
+    "user": 1,
+    "content_type": 28,
+    "object_id": "1",
+    "object_repr": "Operator",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2018-05-20T18:16:54.979Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "4",
+    "object_repr": "Bambara (bm)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2018-05-20T18:17:09.595Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "51",
+    "object_repr": "Voice Label: Bambara Language",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2018-05-20T18:17:23.768Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "4",
+    "object_repr": "Bambara (bm)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"voice_label\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2018-05-20T18:28:02.936Z",
+    "user": 1,
+    "content_type": 17,
+    "object_id": "1",
+    "object_repr": "0627490689",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2018-05-20T18:37:34.980Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "52",
+    "object_repr": "Voice Label: Eleven",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2018-05-20T18:37:42.721Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "53",
+    "object_repr": "Voice Label: Twelve",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2018-05-20T18:37:49.100Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "54",
+    "object_repr": "Voice Label: Thirteen",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2018-05-20T18:37:55.272Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "55",
+    "object_repr": "Voice Label: Fourteen",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2018-05-20T18:38:02.304Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "56",
+    "object_repr": "Voice Label: Fifteen",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2018-05-20T18:38:08.824Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "57",
+    "object_repr": "Voice Label: Sixteen",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2018-05-20T18:38:15.379Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "58",
+    "object_repr": "Voice Label: Seventeen",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2018-05-20T18:38:22.555Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "59",
+    "object_repr": "Voice Label: Eighteen",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2018-05-20T18:38:28.721Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "60",
+    "object_repr": "Voice Label: Nineteen",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2018-05-20T18:38:37.978Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "61",
+    "object_repr": "Voice Label: Twenty",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2018-05-20T18:38:43.938Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "62",
+    "object_repr": "Voice Label: Thirty",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2018-05-20T18:38:49.716Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "63",
+    "object_repr": "Voice Label: Forty",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2018-05-20T18:38:55.220Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "64",
+    "object_repr": "Voice Label: Fifty",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2018-05-20T18:39:01.106Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "65",
+    "object_repr": "Voice Label: Sixty",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2018-05-20T18:39:07.818Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "66",
+    "object_repr": "Voice Label: Seventy",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2018-05-20T18:39:13.617Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "67",
+    "object_repr": "Voice Label: Eighty",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2018-05-20T18:39:21.093Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "68",
+    "object_repr": "Voice Label: Ninety",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2018-05-20T18:39:27.676Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "69",
+    "object_repr": "Voice Label: Hundred",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2018-05-20T18:39:34.250Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "70",
+    "object_repr": "Voice Label: Thousand",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2018-05-20T18:39:44.997Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "71",
+    "object_repr": "Voice Label: And (number)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2018-05-20T18:39:53.817Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "72",
+    "object_repr": "Voice Label: Comma (number)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2018-05-20T18:40:18.523Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "73",
+    "object_repr": "Voice Label: Hundred (multi)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2018-05-20T18:40:50.871Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "73",
+    "object_repr": "Voice Label: Hundreds",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2018-05-20T18:40:55.218Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "74",
+    "object_repr": "Voice Label: Tens",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2018-05-20T18:41:01.404Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "75",
+    "object_repr": "Voice Label: Thousands",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2018-05-20T19:07:59.148Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "76",
+    "object_repr": "Voice Label: Ten",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2018-05-20T19:11:15.556Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "4",
+    "object_repr": "Bambara (bm)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"ten\", \"twenty\", \"hundred\", \"thousand\", \"andsep\", \"tens\", \"hundreds\", \"thousands\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2018-05-20T19:13:10.957Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "3",
+    "object_repr": "Francais (fr)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"ten\", \"eleven\", \"twelve\", \"thirteen\", \"fourteen\", \"fifteen\", \"sixteen\", \"twenty\", \"thirty\", \"fourty\", \"fifty\", \"sixty\", \"eighty\", \"hundred\", \"thousand\", \"andsep\", \"commasep\", \"hundreds\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2018-05-20T19:14:28.356Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "2",
+    "object_repr": "English (en)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"ten\", \"eleven\", \"twelve\", \"thirteen\", \"fourteen\", \"fifteen\", \"sixteen\", \"seventeen\", \"eighteen\", \"nineteen\", \"twenty\", \"thirty\", \"fourty\", \"fifty\", \"sixty\", \"seventy\", \"eighty\", \"ninety\", \"hundred\", \"thousand\", \"andsep\", \"commasep\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2018-05-20T19:35:40.287Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "4",
+    "object_repr": "Voice Service: Number Repeater",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2018-05-20T19:52:06.102Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "4",
+    "object_repr": "Voice Service: Number Generator",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2018-05-20T19:52:35.847Z",
+    "user": 1,
+    "content_type": 32,
+    "object_id": "57",
+    "object_repr": "Message: Random Number",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2018-05-20T19:53:06.878Z",
+    "user": 1,
+    "content_type": 32,
+    "object_id": "57",
+    "object_repr": "Message: Random Number",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"voice_label\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2018-05-20T19:53:42.686Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "4",
+    "object_repr": "Voice Service: Number Generator",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"_start_element\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2018-05-20T19:58:41.205Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "4",
+    "object_repr": "Voice Service: Number Generator",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"supported_languages\", \"registration_language\"]}}]"
   }
 }
 ]
