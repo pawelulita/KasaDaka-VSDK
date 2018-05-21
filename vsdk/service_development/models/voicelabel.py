@@ -321,7 +321,7 @@ class Language(models.Model):
         if (code == 'en'):
             return generate_num_english(d, dict);
         if (code == 'fr'):
-            return generate_numb_french(d, dict);
+            return generate_num_french(d, dict);
         if (code == 'bm'):
             return generate_num_bambara(d, dict);
         return []

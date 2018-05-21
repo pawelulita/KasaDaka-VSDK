@@ -1,5 +1,4 @@
 from datetime import timedelta
-from typing import List
 
 from django.http import HttpResponse, HttpRequest, Http404, JsonResponse
 from django.shortcuts import render, get_object_or_404
@@ -11,7 +10,7 @@ from vsdk.polls.models import (VoteOption, Vote, Poll, PollResultsPresentation,
                                EndPoll,
                                AskPollDuration)
 from vsdk.polls.models.custom_elements import PollDurationPresentation
-from vsdk.service_development.models import CallSession, Language, VoiceService
+from vsdk.service_development.models import CallSession, VoiceService, Language
 from vsdk.service_development.views import choice_generate_context
 
 
@@ -27,14 +26,16 @@ def poll_duration_presentation(request: HttpRequest,
     session = get_object_or_404(CallSession, pk=session_id)
     session.record_step(element)
 
+    language: Language = session.language
+
     poll = getattr(element.service, 'poll', None)
     redirect_url = None
 
     # There's an active poll
     if poll and poll.active:
-        prefix_url = element.get_voice_fragment_url(session.language)
-        number_urls = _convert_number_to_audio_urls(poll.remaining_days, session.language)
-        days_url = element.days_label.get_voice_fragment_url(session.language)
+        prefix_url = element.get_voice_fragment_url(language)
+        number_urls = language.generate_number(poll.remaining_days)
+        days_url = element.days_label.get_voice_fragment_url(language)
 
         audio_urls = [prefix_url] + number_urls + [days_url]
 
@@ -43,7 +44,7 @@ def poll_duration_presentation(request: HttpRequest,
 
     # Anything else (e.g. no active poll, no user attached to this session)
     else:
-        audio_urls = [element.no_active_poll_label.get_voice_fragment_url(session.language)]
+        audio_urls = [element.no_active_poll_label.get_voice_fragment_url(language)]
 
         if not element.final_element and element.no_active_poll_redirect:
             redirect_url = element.no_active_poll_redirect.get_absolute_url(session)
@@ -101,6 +102,8 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
     session = get_object_or_404(CallSession, pk=session_id)
     session.record_step(element)
 
+    language: Language = session.language
+
     poll: Poll = getattr(element.service, 'poll', None)
     redirect_url = None
 
@@ -108,13 +111,13 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
         audio_urls = []
 
         for vote_result in poll.count_votes():
-            count_urls = _convert_number_to_audio_urls(vote_result.vote_count, session.language)
+            count_urls = language.generate_number(vote_result.vote_count)
             audio_urls.extend(count_urls)
 
-            voted_for_url = element.get_voice_fragment_url(session.language)
+            voted_for_url = element.get_voice_fragment_url(language)
             audio_urls.append(voted_for_url)
 
-            value_urls = _convert_number_to_audio_urls(vote_result.vote_value, session.language)
+            value_urls = language.generate_number(vote_result.vote_value)
             audio_urls.extend(value_urls)
 
         if not element.final_element and element.redirect:
@@ -122,10 +125,10 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
 
     else:
         audio_urls = [
-            element.in_previous_vote_label.get_voice_fragment_url(session.language),
-            _convert_number_to_audio_urls(0, session.language)[0],
-            element.get_voice_fragment_url(session.language),
-            _convert_number_to_audio_urls(0, session.language)[0]
+            element.in_previous_vote_label.get_voice_fragment_url(language),
+            language.generate_number(0)[0],
+            element.get_voice_fragment_url(language),
+            language.generate_number(0)[0]
         ]
 
         if not element.final_element and element.no_active_poll_redirect:
@@ -172,14 +175,14 @@ def ask_poll_duration_confirmation(request: HttpRequest,
     session = get_object_or_404(CallSession, pk=session_id)
     session.record_step(element)
 
-    language = session.language
+    language: Language = session.language
 
     duration = int(request.GET['duration'])  # in days
 
     context = choice_generate_context(element, session)
     context.update({
         'duration': duration,
-        'duration_audio_urls': _convert_number_to_audio_urls(duration, language),
+        'duration_audio_urls': language.generate_number(duration),
         'days_url': element.days_label.get_voice_fragment_url(language),
         'duration_correct_url': element.duration_correct_label.get_voice_fragment_url(language)
     })
@@ -226,10 +229,11 @@ def confirm_poll_created(request: HttpRequest, element_id: int, session_id: int)
     session.record_step(element)
 
     poll: Poll = session.service.poll
+    language: Language = session.language
 
-    audio_urls = [element.get_voice_fragment_url(session.language)]
-    audio_urls.extend(_convert_number_to_audio_urls(poll.duration.days, session.language))
-    audio_urls.append(element.days_label.get_voice_fragment_url(session.language))
+    audio_urls = [element.get_voice_fragment_url(language)]
+    audio_urls.extend(language.generate_number(poll.duration.days))
+    audio_urls.append(element.days_label.get_voice_fragment_url(language))
 
     if not element.final_element and element.redirect:
         redirect_url = element.redirect.get_absolute_url(session)
@@ -298,25 +302,3 @@ def votes_json(request: HttpRequest, poll_id: int) -> HttpResponse:
     }
 
     return JsonResponse(results)
-
-
-def _convert_number_to_audio_urls(num: int, language: Language) -> List[str]:
-    """
-    Convert a non-negative number to a list of URLs representing its value.
-
-    If the number is negative, it's treated as if it was 0.
-    """
-    digit_urls = language.get_interface_numbers_voice_label_url_list
-
-    if num <= 0:
-        return [digit_urls[0]]
-
-    urls = []
-
-    while num != 0:
-        urls.append(digit_urls[num % 10])
-        num = num // 10
-
-    urls.reverse()
-
-    return urls
