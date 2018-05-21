@@ -64,7 +64,9 @@
                 }
             }
         }
-        return Array.from(results).map(x => [x[0], x[1].size]);
+
+        console.log(results);
+        return Array.from(results).map(x => ["Option: " + x[0], x[1].size]);
     };
 
     const drawPieChart = (htmlID, poll) => {
@@ -88,7 +90,7 @@
             series: [{
                 name: 'Bips',
                 data: computePieChartData(poll)
-            }]
+            }],
         });
     };
 
@@ -147,7 +149,10 @@
             legend: {
                 enabled: true
             },
-            series: generateTimeSeries(poll)
+            series: generateTimeSeries(poll),
+            time: {
+                timezoneOffset: new Date().getTimezoneOffset()
+            }
         });
     };
 
@@ -179,7 +184,7 @@
                             series.addPoint([x, noBips], true, false);
                         })
                     }
-                }
+                },
             },
             title: {
                 text: "What do you think?"
@@ -199,7 +204,10 @@
             legend: {
                 enabled: true
             },
-            series: [{name: "yes", data: [], step: "end"}, {name: "no", data: [], step: "end"}]
+            series: [{name: "yes", data: [], step: "end"}, {name: "no", data: [], step: "end"}],
+            time: {
+                timezoneOffset: new Date().getTimezoneOffset()
+            }
         });
     };
 
@@ -242,7 +250,7 @@
                                         .catch(e => console.error(e.stack));
                                 }, 1000);
                             }
-                        }
+                        },
                     },
                     title: {
                         text: "What do you think?"
@@ -262,7 +270,10 @@
                     legend: {
                         enabled: true
                     },
-                    series: generateTimeSeries(initialData)
+                    series: generateTimeSeries(initialData),
+                    time: {
+                        timezoneOffset: new Date().getTimezoneOffset()
+                    }
                 });
             })
             .catch(e => console.error(e.stack));
