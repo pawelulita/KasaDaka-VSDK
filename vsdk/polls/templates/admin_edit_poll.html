@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block extrahead %}
+    {{ block.super }}
     <script src="{% static 'libs/highcharts.js' %}"></script>
     <!--[if lt IE 9]>
     <script src="{% static 'libs/oldie.js' %}"></script>
@@ -12,7 +13,7 @@
 {% endblock %}
 
 {% block after_related_objects %}
-
+    {{ block.super }}
     <div id="timeLive" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
     <script>
