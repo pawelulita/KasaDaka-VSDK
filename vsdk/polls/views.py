@@ -105,9 +105,13 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
     language: Language = session.language
 
     poll: Poll = getattr(element.service, 'poll', None)
+
+    if not poll or not poll.active:
+        poll = Poll.objects.order_by('-start_date').first()
+
     redirect_url = None
 
-    if poll and poll.active:
+    if poll:
         audio_urls = []
 
         for vote_result in poll.count_votes():
