@@ -114,6 +114,9 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
     if poll:
         audio_urls = []
 
+        if not poll.active:
+            audio_urls.append(element.in_previous_vote_label.get_voice_fragment_url(language))
+
         for vote_result in poll.count_votes():
             count_urls = language.generate_number(vote_result.vote_count)
             audio_urls.extend(count_urls)
