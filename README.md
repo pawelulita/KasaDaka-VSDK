@@ -9,6 +9,7 @@ Open a shell in that directory and run the commands:
 ```
 > python manage.py collectstatic
 > python manage.py makemigrations polls
+> python manage.py makemigrations nums
 > python manage.py makemigrations service_development
 > python manage.py migrate
 > python manage.py createsuperuser
