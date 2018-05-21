@@ -3,23 +3,24 @@
 
 {% block extrahead %}
     <script src="{% static 'libs/highcharts.js' %}"></script>
+    <!--[if lt IE 9]>
+    <script src="{% static 'libs/oldie.js' %}"></script>
+    <![endif]-->
+    <script src="{% static 'libs/highcharts-3d.js' %}"></script>
+    <script src="{% static 'libs/exporting.js' %}"></script>
+    <script src="{% static 'libs/export-data.js' %}"></script>
 {% endblock %}
 
 {% block after_related_objects %}
-    <h2>Pie charts</h2>
+    <h2>Pie chart</h2>
     <div id="pieChart1" style="width:49%; height:400px; display:inline-block;"></div>
-    <div id="pieChart2" style="width:49%; height:400px; display:inline-block;"></div>
 
-    <h2>Time chart</h2>
+    <h2>Static time chart (for finished polls)</h2>
 
     <div id="timeStatic" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
-    <h2>Animated time chart</h2>
-    <button id="yesButton">Vote yes</button>
-    <button id="noButton">Vote no</button>
-    <div id="timeButtoned" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-    <h2>Live time chart</h2>
+    <h2>Live time chart (for active polls)</h2>
+      
     <div id="timeLive" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 
@@ -57,7 +58,7 @@
                     }
                 }
             }
-            return Array.from(results).map(x => [x[0], x[1].size]);
+            return Array.from(results).map(x => [x[0] + "", x[1].size]);
         };
 
         const drawPieChart = (htmlID, poll) => {
@@ -86,7 +87,6 @@
         };
 
         drawPieChart("pieChart1", poll);
-        drawPieChart("pieChart2", poll);
 
         /* Time line */
 
@@ -140,63 +140,15 @@
                 legend: {
                     enabled: true
                 },
-                series: generateTimeSeries(poll)
+                series: generateTimeSeries(poll),
+                time: {
+                  timezoneOffset: new Date().getTimezoneOffset()
+                }
             });
         };
 
         drawTimeSeries("timeStatic", poll);
 
-        /* Manipulating with buttons, for demo */
-
-        const drawButtonedTimeSeries = htmlID => {
-            let yesBips = 0;
-            let noBips = 0;
-
-            Highcharts.chart(htmlID, {
-                chart: {
-                    zoomType: 'x',
-                    animation: Highcharts.svg, // don't animate in old IE
-                    events: {
-                        load: function () {
-                            document.getElementById("yesButton").addEventListener("click", () => {
-                                const series = this.series[0];
-                                const x = (new Date()).getTime(); // current time
-                                yesBips += 1;
-                                series.addPoint([x, yesBips], true, false);
-                            });
-
-                            document.getElementById("noButton").addEventListener("click", () => {
-                                const series = this.series[1];
-                                const x = (new Date()).getTime(); // current time
-                                noBips += 1;
-                                series.addPoint([x, noBips], true, false);
-                            })
-                        }
-                    }
-                },
-                title: {
-                    text: "What do you think?"
-                },
-                subtitle: {
-                    text: document.ontouchstart === undefined ?
-                        'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-                },
-                xAxis: {
-                    type: 'datetime'
-                },
-                yAxis: {
-                    title: {
-                        text: 'Total number of bips (cumulative)'
-                    }
-                },
-                legend: {
-                    enabled: true
-                },
-                series: [{name: "yes", data: [], step: "end"}, {name: "no", data: [], step: "end"}]
-            });
-        };
-
-        drawButtonedTimeSeries("timeButtoned");
 
         // live updating, given some url to a json file
 
@@ -255,7 +207,10 @@
                         legend: {
                             enabled: true
                         },
-                        series: generateTimeSeries(initialData)
+                        series: generateTimeSeries(initialData),
+                        time: {
+                          timezoneOffset: new Date().getTimezoneOffset()
+                        }
                     });
                 })
                 .catch(e => console.error(e.stack));
