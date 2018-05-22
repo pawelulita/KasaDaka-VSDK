@@ -92,10 +92,8 @@ ENV/
 #*.wav
 *migrations*
 *db.sqlite3
-uploads/*
 #vsdk/settings.py
 vsdk/static
-vsdk/uploads
 vsdk/staticfiles
 *.DS_Store
 
