@@ -127,8 +127,10 @@ def poll_results(request: HttpRequest, element_id: int, session_id: int) -> Http
             value_urls = language.generate_number(vote_result.vote_value)
             audio_urls.extend(value_urls)
 
-        if not element.final_element and element.redirect:
+        if poll.active and not element.final_element and element.redirect:
             redirect_url = element.redirect.get_absolute_url(session)
+        elif not poll.active and not element.final_element and element.no_active_poll_redirect:
+            redirect_url = element.no_active_poll_redirect.get_absolute_url(session)
 
     # If there's no previous poll, we don't say anything
     else:
